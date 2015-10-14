@@ -16,47 +16,21 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-import urllib
 import json
 
 from .datanow import DataNow
 from .data import Data
 from datetime import datetime
+from .tools import Tools
 
 
 class API():
     """ API class for Eliq Online API  """
 
-    # Base url to Eliq Online API
-    BASE_URL = "https://my.eliq.se/api"
-
-    # Access token for API
-    ACCESS_TOKEN = None
+    tools = None
 
     def __init__(self, access_token):
-        self.ACCESS_TOKEN = access_token
-
-    def get_data_from_eliq(self, function, parameters=None):
-        if parameters is None:
-            parameters = ""
-
-        api_url = "%s/%s?accesstoken=%s%s" % (
-            self.BASE_URL,
-            function,
-            self.ACCESS_TOKEN,
-            parameters
-        )
-
-        api_open = urllib.urlopen(api_url)
-        api_code = api_open.getcode()
-        api_content = api_open.read()
-        api_content = api_content.decode('utf-8')
-
-        if api_code == 400:
-            print api_content
-            return None
-        else:
-            return api_content
+        self.tools = Tools(access_token)
 
     def get_data(self, startdate, intervaltype, enddate, channelid):
         data = Data()
@@ -69,7 +43,7 @@ class API():
         if channelid is not None:
             parameters = "&channelid=%d" % (channelid)
 
-        eliqData = self.get_data_from_eliq(function, parameters)
+        eliqData = self.tools.get_data_from_eliq(function, parameters)
 
         if eliqData is None:
             return None
