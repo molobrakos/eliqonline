@@ -1,4 +1,4 @@
-Eliq Online
+(Not complete!) Eliq Online API Libary
 
 ```python
 #! /usr/bin/env python
