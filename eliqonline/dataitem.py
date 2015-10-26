@@ -16,9 +16,11 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-from .api import API
-from .datanow import DataNow
-from .data import Data
-from .dataitem import DataItem
 
-__all__ = ["API", "DataNow", "Data", "DataItem"]
+class DataItem():
+    """ Class for Eliq's Data items """
+    avgpower = None
+    energy = None
+    temp_out = None
+    time_start = None
+    time_end = None
