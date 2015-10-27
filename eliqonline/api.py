@@ -39,7 +39,7 @@ class API():
         parameters += "&intervaltype=%s" % intervaltype
 
         if enddate is not None:
-            parameters += "enddate=%s" % enddate
+            parameters += "&enddate=%s" % enddate
 
         if channelid is not None:
             parameters += "&channelid=%d" % channelid
