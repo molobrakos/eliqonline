@@ -9,6 +9,7 @@ help:
 	@echo "      pep8: run flake8 (pep8) on project"
 	@echo "      lint: run pylint on project"
 	@echo "      push: push to master"
+	@echo "      test: run tests"
 	@echo ""
 
 clean:
@@ -24,3 +25,7 @@ lint:
 
 push:
 	git push -u origin master
+
+test:
+	nosetests -v
+

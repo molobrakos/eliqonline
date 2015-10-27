@@ -29,7 +29,7 @@ class Tools():
     # Access token for API
     ACCESS_TOKEN = None
 
-    # Date format
+    # Date format, (ISO 8601, European)
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
     def __init__(self, access_token):
