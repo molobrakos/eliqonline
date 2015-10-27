@@ -17,6 +17,7 @@
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 import urllib
+from datetime import datetime
 
 
 class Tools():
@@ -27,6 +28,9 @@ class Tools():
 
     # Access token for API
     ACCESS_TOKEN = None
+
+    # Date format
+    DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
     def __init__(self, access_token):
         self.ACCESS_TOKEN = access_token
@@ -52,3 +56,9 @@ class Tools():
             return None
         else:
             return api_content
+
+    def to_date(self, date_string):
+        return datetime.strptime(
+            date_string,
+            self.DATE_FORMAT
+        )

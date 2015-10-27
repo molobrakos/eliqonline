@@ -23,8 +23,6 @@ from .data import Data
 from .dataitem import DataItem
 from .tools import Tools
 
-from datetime import datetime
-
 
 class API():
     """ API class for Eliq Online API  """
@@ -53,9 +51,9 @@ class API():
         else:
             jsonData = json.loads(eliqData)
             eliq_data = Data()
-            eliq_data.startdate = jsonData["startdate"]
+            eliq_data.startdate = self.tools.to_date(jsonData["startdate"])
             eliq_data.intervaltype = jsonData["intervaltype"]
-            eliq_data.enddate = jsonData["enddate"]
+            eliq_data.enddate = self.tools.to_date(jsonData["enddate"])
             eliq_data.channelid = jsonData["channelid"]
 
             eliq_data.data = []
@@ -87,8 +85,7 @@ class API():
             eliq_data_now = DataNow()
             eliq_data_now.power = float(jsonData["power"])
             eliq_data_now.channelid = jsonData["channelid"]
-            eliq_data_now.createddate = datetime.strptime(
-                jsonData["createddate"],
-                "%Y-%m-%dT%H:%M:%S"
+            eliq_data_now.createddate = self.tools.to_date(
+                jsonData["createddate"]
             )
             return eliq_data_now
