@@ -59,8 +59,20 @@ class Tools():
         else:
             return api_content
 
+    def maybe_to_date(self, date_string):
+        if date_string is not None:
+            return self.to_date(date_string)
+        else:
+            return None
+
     def to_date(self, date_string):
         return datetime.strptime(
             date_string,
             self.DATE_FORMAT
         )
+
+    def maybe_to_float(self, float_string):
+        if float_string is not None:
+            return float(float_string)
+        else:
+            return None

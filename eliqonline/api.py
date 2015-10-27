@@ -60,15 +60,16 @@ class API():
 
             for json_data_item in jsonData["data"]:
                 data_item = DataItem()
-                data_item.avgpower = float(json_data_item["avgpower"])
-                data_item.energy = float(json_data_item["energy"])
-                data_item.temp_out = float(json_data_item["temp_out"])
-                data_item.time_end = self.tools.to_date(
-                    json_data_item["time_end"]
-                )
-                data_item.time_start = self.tools.to_date(
-                    json_data_item["time_start"]
-                )
+                data_item.avgpower = self.tools.maybe_to_float(
+                    json_data_item["avgpower"])
+                data_item.energy = self.tools.maybe_to_float(
+                    json_data_item["energy"])
+                data_item.temp_out = self.tools.maybe_to_float(
+                    json_data_item["temp_out"])
+                data_item.time_end = self.tools.maybe_to_date(
+                    json_data_item["time_end"])
+                data_item.time_start = self.tools.maybe_to_date(
+                    json_data_item["time_start"])
                 eliq_data.data.append(data_item)
 
             return eliq_data
@@ -90,6 +91,5 @@ class API():
             eliq_data_now.power = float(json_data["power"])
             eliq_data_now.channelid = json_data["channelid"]
             eliq_data_now.createddate = self.tools.to_date(
-                json_data["createddate"]
-            )
+                json_data["createddate"])
             return eliq_data_now
