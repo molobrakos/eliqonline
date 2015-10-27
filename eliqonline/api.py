@@ -60,6 +60,7 @@ class API():
 
             for json_data_item in jsonData["data"]:
                 data_item = DataItem()
+
                 data_item.avgpower = self.tools.maybe_to_float(
                     json_data_item["avgpower"])
                 data_item.energy = self.tools.maybe_to_float(
@@ -70,6 +71,7 @@ class API():
                     json_data_item["time_end"])
                 data_item.time_start = self.tools.maybe_to_date(
                     json_data_item["time_start"])
+
                 eliq_data.data.append(data_item)
 
             return eliq_data
