@@ -43,6 +43,25 @@ class ToolTest(unittest.TestCase):
             self.eliq_online.tools.ACCESS_TOKEN
         )
 
+    def test_maybe_to_date(self):
+        str_date = "2015-01-01"
+        str_time = "T12:00:00"
+        str_datetime = "%s%s" % (str_date, str_time)
+        date = self.eliq_online.tools.maybe_to_date(str_datetime)
+        self.assertEqual(str_date, str(date.date()))
+
+    def test_maybe_to_date_none(self):
+        date = self.eliq_online.tools.maybe_to_date(None)
+        self.assertEqual(None, date)
+
+    def test_to_date(self):
+        str_date = "2015-01-01"
+        str_time = "12:00:00"
+        str_datetime = "%sT%s" % (str_date, str_time)
+        date_value = self.eliq_online.tools.to_date(str_datetime)
+        self.assertEqual(str_date, str(date_value.date()))
+        self.assertEqual(str_time, str(date_value.time()))
+
     def test_maybe_to_float(self):
         str_float = str(self.unit_tools.get_random_float())
         value = self.eliq_online.tools.maybe_to_float(str_float)
@@ -51,6 +70,10 @@ class ToolTest(unittest.TestCase):
             float(str_float),
             value
         )
+
+    def test_maybe_to_float_none(self):
+        value = self.eliq_online.tools.maybe_to_float(None)
+        self.assertEqual(None, value)
 
 if __name__ == '__main__':
         unittest.main()
