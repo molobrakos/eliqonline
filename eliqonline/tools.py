@@ -39,6 +39,7 @@ class Tools():
         if parameters is None:
             parameters = ""
 
+        # Build API request url
         api_url = "%s/%s?accesstoken=%s%s" % (
             self.BASE_URL,
             function,
@@ -51,6 +52,7 @@ class Tools():
         api_content = api_open.read()
         api_content = api_content.decode('utf-8')
 
+        # On http 400 (bad request), print out the error and return None.
         if api_code == 400:
             print api_content
             return None
