@@ -19,8 +19,7 @@
 from .api import API
 from .datanow import DataNow
 from .data import Data
-from .dataitem import DataItem
+from .datavalues import DataValues
 
-__all__ = ["API", "DataNow", "Data", "DataItem"]
-
-version = "1.0.5"
+__all__ = ["API", "DataNow", "Data", "DataValues"]
+__version__ = "1.0.5"

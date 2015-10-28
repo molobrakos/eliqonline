@@ -19,6 +19,32 @@
 
 class DataNow():
     """ Class for Eliq's Data Now function """
-    channelid = None
-    createddate = None
-    power = None
+
+    def __init__(self):
+        self.channelid = None
+        self.createddate = None
+        self.power = None
+
+    @property
+    def channelid(self):
+        return self.channelid
+
+    @channelid.setter
+    def channelid(self, value):
+        self.channelid = value
+
+    @property
+    def createddate(self):
+        return self.createddate
+
+    @createddate.setter
+    def createddate(self, value):
+        self.createddate = value
+
+    @property
+    def power(self):
+        return self.power
+
+    @power.setter
+    def power(self, value):
+        self.power = value

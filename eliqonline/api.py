@@ -20,7 +20,7 @@ import json
 
 from .datanow import DataNow
 from .data import Data
-from .dataitem import DataItem
+from .datavalues import DataValues
 from .tools import Tools
 
 
@@ -58,21 +58,21 @@ class API():
 
             eliq_data.data = []
 
-            for json_data_item in jsonData["data"]:
-                data_item = DataItem()
+            for json_data_values in jsonData["data"]:
+                data_values = DataValues()
 
-                data_item.avgpower = self.tools.maybe_to_float(
-                    json_data_item["avgpower"])
-                data_item.energy = self.tools.maybe_to_float(
-                    json_data_item["energy"])
-                data_item.temp_out = self.tools.maybe_to_float(
-                    json_data_item["temp_out"])
-                data_item.time_end = self.tools.maybe_to_date(
-                    json_data_item["time_end"])
-                data_item.time_start = self.tools.maybe_to_date(
-                    json_data_item["time_start"])
+                data_values.avgpower = self.tools.maybe_to_float(
+                    json_data_values["avgpower"])
+                data_values.energy = self.tools.maybe_to_float(
+                    json_data_values["energy"])
+                data_values.temp_out = self.tools.maybe_to_float(
+                    json_data_values["temp_out"])
+                data_values.time_end = self.tools.maybe_to_date(
+                    json_data_values["time_end"])
+                data_values.time_start = self.tools.maybe_to_date(
+                    json_data_values["time_start"])
 
-                eliq_data.data.append(data_item)
+                eliq_data.data.append(data_values)
 
             return eliq_data
 
