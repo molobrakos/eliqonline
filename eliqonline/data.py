@@ -24,6 +24,15 @@ class Data(object):
     """ Class for Eliq's Data function """
 
     def __init__(self):
+        """
+        Data:
+            _channelid: channel id.
+            _startdate: start date.
+            _enddate: end date.
+            _intervaltype: type of inteval, day or 6min.
+            _data: list of DataValues
+            _tools: tools
+        """
         self._channelid = None
         self._startdate = None
         self._enddate = None
