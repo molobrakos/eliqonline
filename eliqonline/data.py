@@ -19,8 +19,50 @@
 
 class Data():
     """ Class for Eliq's Data function """
-    channelid = None
-    startdate = None
-    enddate = None
-    intervaltype = None
-    data = None
+
+    def __init__(self):
+        self.channelid = None
+        self.startdate = None
+        self.enddate = None
+        self.intervaltype = None
+        self.data = None
+
+    @property
+    def channelid(self):
+        return self.channelid
+
+    @channelid.setter
+    def channelid(self, value):
+        self.channelid = value
+
+    @property
+    def startdate(self):
+        return self.startdate
+
+    @startdate.setter
+    def startdate(self, value):
+        self.startdate = value
+
+    @property
+    def enddate(self):
+        return self.enddate
+
+    @enddate.setter
+    def enddate(self, value):
+        self.enddate = value
+
+    @property
+    def intervaltype(self):
+        return self.intervaltype
+
+    @intervaltype.setter
+    def intervaltype(self, value):
+        self.intervaltype = value
+
+    @property
+    def data(self):
+        return self.data
+
+    @data.setter
+    def data(self, value):
+        self.data = value

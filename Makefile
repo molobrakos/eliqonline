@@ -4,7 +4,7 @@ help:
 	@echo " | _|| | / _' | (_) | ' \| | | ' \/ -_)/ _ \|  _/| | " 
 	@echo " |___|_|_\__, |\___/|_||_|_|_|_||_\___/_/ \_\_| |___|"
 	@echo "            |_| Python Libary                        "
-	@echo "make.."
+	@echo "make:"
 	@echo "      clean: clean project"
 	@echo "      pep8: run flake8 (pep8) on project"
 	@echo "      lint: run pylint on project"
