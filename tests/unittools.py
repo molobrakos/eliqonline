@@ -17,6 +17,7 @@
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 import random
+from datetime import datetime
 
 
 class UnitTools():
@@ -25,3 +26,9 @@ class UnitTools():
 
     def get_random_float(self):
         return random.uniform(1.5, 1.9)
+
+    def get_datetime_today(self):
+        return datetime.today().replace(microsecond=0)
+
+    def datetime_to_string(self, date):
+        return date.strftime('%Y-%m-%dT%H:%M:%S')

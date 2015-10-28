@@ -19,7 +19,6 @@
 import unittest
 import sys
 from .unittools import UnitTools
-from datetime import datetime
 
 sys.path.append('.')
 
@@ -41,8 +40,8 @@ class TestData(unittest.TestCase):
         self.assertEqual(None, self.data.channelid)
 
     def test_startdate(self):
-        startdate_value = datetime.today().replace(microsecond=0)
-        startdate_string = startdate_value.strftime('%Y-%m-%dT%H:%M:%S')
+        startdate_value = self.unit_tools.get_datetime_today()
+        startdate_string = self.unit_tools.datetime_to_string(startdate_value)
         self.data.startdate = startdate_string
         self.assertEqual(
             startdate_value,
@@ -53,8 +52,8 @@ class TestData(unittest.TestCase):
         self.assertEqual(None, self.data.startdate)
 
     def test_enddate(self):
-        enddate_value = datetime.today().replace(microsecond=0)
-        enddate_string = enddate_value.strftime('%Y-%m-%dT%H:%M:%S')
+        enddate_value = self.unit_tools.get_datetime_today()
+        enddate_string = self.unit_tools.datetime_to_string(enddate_value)
         self.data.enddate = enddate_string
         self.assertEqual(
             enddate_value,
