@@ -27,44 +27,39 @@ import eliqonline
 
 class ToolTest(unittest.TestCase):
 
-    unit_tools = None
-
-    eliq_online = None
-    token_string = None
-
     def setUp(self):
         self.unit_tools = UnitTools()
         self.token_string = self.unit_tools.get_random_string()
-        self.eliq_online = eliqonline.API(self.token_string)
+        self.tools = eliqonline.Tools(self.token_string)
 
     def test_init(self):
         self.assertEquals(
             self.token_string,
-            self.eliq_online.tools.ACCESS_TOKEN
+            self.tools.ACCESS_TOKEN
         )
 
     def test_maybe_to_date(self):
         str_date = "2015-01-01"
         str_time = "T12:00:00"
         str_datetime = "%s%s" % (str_date, str_time)
-        date = self.eliq_online.tools.maybe_to_date(str_datetime)
+        date = self.tools.maybe_to_date(str_datetime)
         self.assertEqual(str_date, str(date.date()))
 
     def test_maybe_to_date_none(self):
-        date = self.eliq_online.tools.maybe_to_date(None)
+        date = self.tools.maybe_to_date(None)
         self.assertEqual(None, date)
 
     def test_to_date(self):
         str_date = "2015-01-01"
         str_time = "12:00:00"
         str_datetime = "%sT%s" % (str_date, str_time)
-        date_value = self.eliq_online.tools.to_date(str_datetime)
+        date_value = self.tools.to_date(str_datetime)
         self.assertEqual(str_date, str(date_value.date()))
         self.assertEqual(str_time, str(date_value.time()))
 
     def test_maybe_to_float(self):
         str_float = str(self.unit_tools.get_random_float())
-        value = self.eliq_online.tools.maybe_to_float(str_float)
+        value = self.tools.maybe_to_float(str_float)
 
         self.assertEqual(
             float(str_float),
@@ -72,7 +67,7 @@ class ToolTest(unittest.TestCase):
         )
 
     def test_maybe_to_float_none(self):
-        value = self.eliq_online.tools.maybe_to_float(None)
+        value = self.tools.maybe_to_float(None)
         self.assertEqual(None, value)
 
 if __name__ == '__main__':
