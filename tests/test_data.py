@@ -51,3 +51,42 @@ class TestData(unittest.TestCase):
 
     def test_startdate_none(self):
         self.assertEqual(None, self.data.startdate)
+
+    def test_enddate(self):
+        enddate_value = datetime.today().replace(microsecond=0)
+        enddate_string = enddate_value.strftime('%Y-%m-%dT%H:%M:%S')
+        self.data.enddate = enddate_string
+        self.assertEqual(
+            enddate_value,
+            self.data.enddate
+        )
+
+    def test_enddate_none(self):
+        self.assertEqual(None, self.data.enddate)
+
+    def test_intervaltype_day(self):
+        intervaltype = "day"
+        self.data.intervaltype = intervaltype
+        self.assertEqual(intervaltype, self.data.intervaltype)
+
+    def test_intervaltype_6min(self):
+        intervaltype = "6min"
+        self.data.intervaltype = intervaltype
+        self.assertEqual(intervaltype, self.data.intervaltype)
+
+    def test_intervaltype_none(self):
+        intervaltype = "ost"
+        self.data.intervaltype = intervaltype
+        self.assertEqual(None, self.data.intervaltype)
+
+    def test_data(self):
+        n_data_values = 10
+        for i in range(1, n_data_values):
+            data_values = eliqonline.DataValues()
+            self.data.data.append(data_values)
+
+        self.assertEqual(n_data_values, len(self.data.data))
+
+    def test_data_none(self):
+        self.data.data = False
+        self.assertEqual(None, self.data.data)
