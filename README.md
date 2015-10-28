@@ -1,5 +1,5 @@
 # Eliq Online API Libary
-[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Pypi downloads]( https://img.shields.io/pypi/dm/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq) 
+[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Pypi downloads]( https://img.shields.io/pypi/dm/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq) [![Code Climate](https://codeclimate.com/github/6D66/eliq/badges/gpa.svg)](https://codeclimate.com/github/6D66/eliq)
 
 
 ## Information
