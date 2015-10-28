@@ -60,23 +60,27 @@ class API():
             return None
         else:
             jsonData = json.loads(eliqData)
-            eliq_data = Data()
-            eliq_data.startdate = jsonData["startdate"]
-            eliq_data.intervaltype = jsonData["intervaltype"]
-            eliq_data.enddate = jsonData["enddate"]
-            eliq_data.channelid = jsonData["channelid"]
-
-            eliq_data.data = []
-            for json_data_values in jsonData["data"]:
-                data_values = DataValues()
-                data_values.avgpower = json_data_values["avgpower"]
-                data_values.energy = json_data_values["energy"]
-                data_values.temp_out = json_data_values["temp_out"]
-                data_values.time_end = json_data_values["time_end"]
-                data_values.time_start = json_data_values["time_start"]
-                eliq_data.data.append(data_values)
-
+            eliq_data = self._json_to_data(jsonData)
             return eliq_data
+
+    def _json_to_data(self, jsonData):
+        eliq_data = Data()
+        eliq_data.startdate = jsonData["startdate"]
+        eliq_data.intervaltype = jsonData["intervaltype"]
+        eliq_data.enddate = jsonData["enddate"]
+        eliq_data.channelid = jsonData["channelid"]
+
+        eliq_data.data = []
+        for json_data_values in jsonData["data"]:
+            data_values = DataValues()
+            data_values.avgpower = json_data_values["avgpower"]
+            data_values.energy = json_data_values["energy"]
+            data_values.temp_out = json_data_values["temp_out"]
+            data_values.time_end = json_data_values["time_end"]
+            data_values.time_start = json_data_values["time_start"]
+            eliq_data.data.append(data_values)
+
+        return eliq_data
 
     def get_data_now(self, channelid=None):
         """
