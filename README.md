@@ -1,5 +1,5 @@
 # Eliq Online API Libary
-[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/python-telegram-bot) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq)
+[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq)
 
 
 ## Information
