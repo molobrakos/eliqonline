@@ -23,9 +23,6 @@ pep8:
 lint:
 	pylint -E eliqonline
 
-push:
-	git push -u origin master
-
 test:
 	nosetests -v
 
