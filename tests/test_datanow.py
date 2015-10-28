@@ -37,6 +37,10 @@ class TestDataNow(unittest.TestCase):
         self.data_now.channelid = channelid_value
         self.assertEqual(channelid_value, self.data_now.channelid)
 
+    def test_channelid_none(self):
+        self.data_now.channelid = None
+        self.assertEqual(None, self.data_now.channelid)
+
     def test_createddate(self):
         createdate_value = datetime.today().replace(microsecond=0)
         createdate_string = createdate_value.strftime('%Y-%m-%dT%H:%M:%S')
@@ -46,7 +50,13 @@ class TestDataNow(unittest.TestCase):
             self.data_now.createddate
         )
 
+    def test_createdate_none(self):
+        self.assertEqual(None, self.data_now.createddate)
+
     def test_power(self):
         power = self.unit_tools.get_random_float()
         self.data_now.power = power
         self.assertEqual(power, self.data_now.power)
+
+    def test_power_none(self):
+        self.assertEqual(None, self.data_now.power)

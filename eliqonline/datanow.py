@@ -46,7 +46,8 @@ class DataNow(object):
         Args:
             channelid (int):
         """
-        self._channelid = int(channelid)
+        if channelid is not None:
+            self._channelid = int(channelid)
 
     @property
     def createddate(self):
