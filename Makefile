@@ -9,7 +9,7 @@ help:
 	@echo "      pep8: run flake8 (pep8) on project"
 	@echo "      lint: run pylint on project"
 	@echo "      test: run tests"
-	@echo "      pypi: resiger and upload to pypi/test"
+	@echo "      pypi: register and upload to pypi/test"
 	@echo ""
 
 clean:
