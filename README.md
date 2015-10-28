@@ -1,5 +1,5 @@
 # Eliq Online API Libary
-[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Pypi downloads]( https://img.shields.io/pypi/dm/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq) [![Coverage Status](https://coveralls.io/repos/6D66/eliq/badge.svg?branch=master&service=github)](https://coveralls.io/github/6D66/eliq?branch=master)
+[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Pypi downloads]( https://img.shields.io/pypi/dm/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq) 
 
 
 ## Information
