@@ -1,9 +1,9 @@
-# Eliq Online API Libary
+# Eliq Online API Library
 [![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Pypi downloads]( https://img.shields.io/pypi/dm/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq) [![Code Climate](https://codeclimate.com/github/6D66/eliq/badges/gpa.svg)](https://codeclimate.com/github/6D66/eliq)
 
 
 ## Information
-A simple API libary for Eliq Online.
+A simple API library for Eliq Online.
 For more information see Eliq Online API forum thread; 
 https://my.eliq.se/knowledge/sv-SE/49-eliq-online/299-eliq-online-api
 
