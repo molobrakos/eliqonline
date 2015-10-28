@@ -1,5 +1,7 @@
 Eliq Online API Libary
 
+[![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq)
+
 ```python
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
