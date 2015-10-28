@@ -1,11 +1,17 @@
-Eliq Online API Libary
-
+# Eliq Online API Libary
 [![Build Status](https://travis-ci.org/6D66/eliq.svg)](https://travis-ci.org/6D66/eliq)
 
+## Information
+Just a simple API libary for Eliq Online.
+For more informations see Eliq Online API Thread; 
+https://my.eliq.se/knowledge/sv-SE/49-eliq-online/299-eliq-online-api
+
+
+## Code examples
+### Current power usage
+Getting the current powerusage
 ```python
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import eliqonline
 
 access_token = ""
@@ -13,26 +19,9 @@ eliq_online = eliqonline.API(access_token)
 
 data_now = eliq_online.get_data_now()
 if data_now:
-    print "Data Now:"
-    print "Power: %d W" % data_now.power
-
-print "---"
-
-date = "2015-10-25"
-data = eliq_online.get_data(date, "day")
-if data:
-    print "Data for %s:" % date
-    for item_data in data.data:
-        print "Avg. power: %d W" % item_data.avgpower
-        print "Energy: %0.2f kWh" % float(item_data.energy/1000)
+    print("Power: %d W" % data_now.power)
 ```
-
-Output:
+### Example output:
 ```
-Data Now:
 Power: 496 W
----
-Data for 2015-10-25:
-Avg. power: 1070 W
-Energy: 26.76 kWh
 ```
