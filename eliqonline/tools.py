@@ -54,7 +54,7 @@ class Tools():
 
         # On http 400 (bad request), print out the error and return None.
         if api_code == 400:
-            print api_content
+            print(api_content)
             return None
         else:
             return api_content
