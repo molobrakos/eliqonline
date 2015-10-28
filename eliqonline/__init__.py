@@ -23,4 +23,4 @@ from .dataitem import DataItem
 
 __all__ = ["API", "DataNow", "Data", "DataItem"]
 
-version = "1.0.4"
+version = "1.0.5"
