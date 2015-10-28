@@ -37,7 +37,7 @@ class Data(object):
         self._startdate = None
         self._enddate = None
         self._intervaltype = None
-        self._data = None
+        self._data = []
         self._tools = Tools()
 
     @property
