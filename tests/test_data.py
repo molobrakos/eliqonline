@@ -85,7 +85,7 @@ class TestData(unittest.TestCase):
             data_values = eliqonline.DataValues()
             self.data.data.append(data_values)
 
-        self.assertEqual(n_data_values, len(self.data.data))
+        self.assertEqual(n_data_values, len(self.data.data)+1)
 
     def test_data_none(self):
         self.data.data = False
