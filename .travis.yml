@@ -13,6 +13,6 @@ install:
     - pip install python-coveralls
     - pip install nose
 script:
-    nosetests --with-coverage
+    nosetests --with-coverage --cover-package eliqonline
 after_success:
     - coveralls
