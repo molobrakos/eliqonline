@@ -25,7 +25,7 @@ lint:
 	pylint -E eliqonline
 
 test:
-	nosetests -v --with-coverage 
+	nosetests -v --with-coverage --cover-package eliqonline 
 
 pypi:
 	python setup.py register -r pypitest
