@@ -9,6 +9,7 @@ help:
 	@echo "      pep8: run flake8 (pep8) on project"
 	@echo "      lint: run pylint on project"
 	@echo "      test: run tests"
+	@echo "      pypi: resiger and upload to pypi/test
 	@echo ""
 
 clean:
@@ -24,4 +25,11 @@ lint:
 
 test:
 	nosetests -v
+
+pypi:
+	python setup.py register -r pypitest
+	python setup.py sdist upload -r pypitest
+	python setup.py register -r pypi
+	python setup.py sdist upload -r pypi
+
 
