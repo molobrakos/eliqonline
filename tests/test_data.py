@@ -36,3 +36,18 @@ class TestData(unittest.TestCase):
         channelid_value = 123
         self.data.channelid = channelid_value
         self.assertEqual(channelid_value, self.data.channelid)
+
+    def test_channelid_none(self):
+        self.assertEqual(None, self.data.channelid)
+
+    def test_startdate(self):
+        startdate_value = datetime.today().replace(microsecond=0)
+        startdate_string = startdate_value.strftime('%Y-%m-%dT%H:%M:%S')
+        self.data.startdate = startdate_string
+        self.assertEqual(
+            startdate_value,
+            self.data.startdate
+        )
+
+    def test_startdate_none(self):
+        self.assertEqual(None, self.data.startdate)
