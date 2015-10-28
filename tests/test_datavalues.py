@@ -19,7 +19,6 @@
 import unittest
 import sys
 from .unittools import UnitTools
-from datetime import datetime
 
 sys.path.append('.')
 
@@ -60,8 +59,8 @@ class TestDataValues(unittest.TestCase):
         self.assertEqual(None, self.data_values.temp_out)
 
     def test_time_start(self):
-        time_start_value = datetime.today().replace(microsecond=0)
-        time_start_string = time_start_value.strftime('%Y-%m-%dT%H:%M:%S')
+        time_start_value = self.unit_tools.get_datetime_today()
+        time_start_string = self.unit_tools.datetime_to_string(time_start_value)
         self.data_values.time_start = time_start_string
         self.assertEqual(time_start_value, self.data_values.time_start)
 
@@ -70,8 +69,8 @@ class TestDataValues(unittest.TestCase):
         self.assertEqual(None, self.data_values.time_start)
 
     def test_time_end(self):
-        time_end_value = datetime.today().replace(microsecond=0)
-        time_end_string = time_end_value.strftime('%Y-%m-%dT%H:%M:%S')
+        time_end_value = self.unit_tools.get_datetime_today()
+        time_end_string = self.unit_tools.datetime_to_string(time_end_value)
         self.data_values.time_end = time_end_string
         self.assertEqual(time_end_value, self.data_values.time_end)
 

@@ -42,8 +42,8 @@ class TestDataNow(unittest.TestCase):
         self.assertEqual(None, self.data_now.channelid)
 
     def test_createddate(self):
-        createdate_value = datetime.today().replace(microsecond=0)
-        createdate_string = createdate_value.strftime('%Y-%m-%dT%H:%M:%S')
+        createdate_value = self.unit_tools.get_datetime_today()
+        createdate_string = self.unit_tools.datetime_to_string(createdate_value)
         self.data_now.createddate = createdate_string
         self.assertEqual(
             createdate_value,
