@@ -16,35 +16,72 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
+from datetime import datetime
+from .tools import Tools
 
-class DataNow():
+
+class DataNow(object):
     """ Class for Eliq's Data Now function """
 
     def __init__(self):
-        self.channelid = None
-        self.createddate = None
-        self.power = None
+        self._channelid = None
+        self._createddate = None
+        self._power = None
+        self._tools = Tools()
 
     @property
     def channelid(self):
-        return self.channelid
+        """
+        Returns:
+            channelid (int or None):
+        """
+        if isinstance(self._channelid, int):
+            return self._channelid
+        else:
+            return None
 
     @channelid.setter
-    def channelid(self, value):
-        self.channelid = value
+    def channelid(self, channelid):
+        """
+        Args:
+            channelid (int):
+        """
+        self._channelid = int(channelid)
 
     @property
     def createddate(self):
-        return self.createddate
+        """
+        Returns:
+            createddate (datetime or None):
+        """
+        if isinstance(self._createddate, datetime):
+            return self._createddate
+        else:
+            return None
 
     @createddate.setter
-    def createddate(self, value):
-        self.createddate = value
+    def createddate(self, createddate):
+        """
+        Args:
+            createddate (str): Date and time (ISO 8601, European)
+        """
+        self._createddate = self._tools.to_date(createddate)
 
     @property
     def power(self):
-        return self.power
+        """
+        Returns:
+            power (float or None):
+        """
+        if isinstance(self._power, float):
+            return self._power
+        else:
+            return None
 
     @power.setter
-    def power(self, value):
-        self.power = value
+    def power(self, power):
+        """
+        Args:
+            power (float):
+        """
+        self._power = float(power)

@@ -20,6 +20,7 @@ from .api import API
 from .datanow import DataNow
 from .data import Data
 from .datavalues import DataValues
+from .tools import Tools
 
 __all__ = ["API", "DataNow", "Data", "DataValues"]
 __version__ = "1.0.6"

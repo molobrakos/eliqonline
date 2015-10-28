@@ -32,8 +32,9 @@ class Tools():
     # Date format, (ISO 8601, European)
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
-    def __init__(self, access_token):
-        self.ACCESS_TOKEN = access_token
+    def __init__(self, access_token=None):
+        if access_token is not None:
+            self.ACCESS_TOKEN = access_token
 
     def get_data_from_eliq(self, function, parameters=None):
         if parameters is None:

@@ -27,12 +27,22 @@ from .tools import Tools
 class API():
     """ API class for Eliq Online API  """
 
-    tools = None
-
     def __init__(self, access_token):
-        self.tools = Tools(access_token)
+        self._tools = Tools(access_token)
 
     def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
+        """
+        Args:
+            startdate (str):
+            intervaltype (str):
+                day
+                6min
+            enddate (str):
+            channelid (int):
+
+        Returns:
+            eliqonline.data
+        """
         function = "data"
 
         parameters = "&startdate=%s" % startdate
@@ -44,46 +54,45 @@ class API():
         if channelid is not None:
             parameters += "&channelid=%d" % channelid
 
-        eliqData = self.tools.get_data_from_eliq(function, parameters)
+        eliqData = self._tools.get_data_from_eliq(function, parameters)
 
         if eliqData is None:
             return None
         else:
             jsonData = json.loads(eliqData)
             eliq_data = Data()
-            eliq_data.startdate = self.tools.to_date(jsonData["startdate"])
+            eliq_data.startdate = jsonData["startdate"]
             eliq_data.intervaltype = jsonData["intervaltype"]
-            eliq_data.enddate = self.tools.to_date(jsonData["enddate"])
+            eliq_data.enddate = jsonData["enddate"]
             eliq_data.channelid = jsonData["channelid"]
 
             eliq_data.data = []
-
             for json_data_values in jsonData["data"]:
                 data_values = DataValues()
-
-                data_values.avgpower = self.tools.maybe_to_float(
-                    json_data_values["avgpower"])
-                data_values.energy = self.tools.maybe_to_float(
-                    json_data_values["energy"])
-                data_values.temp_out = self.tools.maybe_to_float(
-                    json_data_values["temp_out"])
-                data_values.time_end = self.tools.maybe_to_date(
-                    json_data_values["time_end"])
-                data_values.time_start = self.tools.maybe_to_date(
-                    json_data_values["time_start"])
-
+                data_values.avgpower = json_data_values["avgpower"]
+                data_values.energy = json_data_values["energy"]
+                data_values.temp_out = json_data_values["temp_out"]
+                data_values.time_end = json_data_values["time_end"]
+                data_values.time_start = json_data_values["time_start"]
                 eliq_data.data.append(data_values)
 
             return eliq_data
 
     def get_data_now(self, channelid=None):
+        """
+        Args:
+            channelid (int)
+
+        Returns:
+            eliqonline.datanow
+        """
         function = "datanow"
         parameters = None
 
         if channelid is not None:
             parameters = "&channelid=%d" % channelid
 
-        eliqData = self.tools.get_data_from_eliq(function, parameters)
+        eliqData = self._tools.get_data_from_eliq(function, parameters)
 
         if eliqData is None:
             return None
@@ -92,6 +101,5 @@ class API():
             eliq_data_now = DataNow()
             eliq_data_now.power = float(json_data["power"])
             eliq_data_now.channelid = json_data["channelid"]
-            eliq_data_now.createddate = self.tools.to_date(
-                json_data["createddate"])
+            eliq_data_now.createddate = json_data["createddate"]
             return eliq_data_now

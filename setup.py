@@ -33,7 +33,7 @@ setup(
     name=package_name,
     packages=[package_name],
     version=find_version(package_name, "__init__.py"),
-    description='Eliq Online API Libary',
+    description='Eliq Online API Library',
     author='Magnus F',
     author_email='magnus@fet.nu',
     url='https://github.com/6D66/eliq/',

@@ -16,53 +16,112 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
+from datetime import datetime
+from .tools import Tools
 
-class Data():
+
+class Data(object):
     """ Class for Eliq's Data function """
 
     def __init__(self):
-        self.channelid = None
-        self.startdate = None
-        self.enddate = None
-        self.intervaltype = None
-        self.data = None
+        self._channelid = None
+        self._startdate = None
+        self._enddate = None
+        self._intervaltype = None
+        self._data = None
+        self._tools = Tools()
 
     @property
     def channelid(self):
-        return self.channelid
+        """
+        Returns:
+            channelid (int or None):
+        """
+        if isinstance(self._channelid, int):
+            return self._channelid
+        else:
+            return None
 
     @channelid.setter
-    def channelid(self, value):
-        self.channelid = value
+    def channelid(self, channelid):
+        """
+        Args:
+            channelid (int)
+        """
+        self._channelid = int(channelid)
 
     @property
     def startdate(self):
-        return self.startdate
+        """
+        Returns:
+            startdate (datetime or None):
+        """
+        if isinstance(self._startdate, datetime):
+            return self._startdate
+        else:
+            return None
 
     @startdate.setter
-    def startdate(self, value):
-        self.startdate = value
+    def startdate(self, startdate):
+        """
+        Args:
+            startdate (str): Date and time (ISO 8601, European)
+        """
+        self._startdate = self._tools.to_date(startdate)
 
     @property
     def enddate(self):
-        return self.enddate
+        """
+        Returns:
+            enddate (datetime or None):
+        """
+        if isinstance(self._enddate, datetime):
+            return self._enddate
+        else:
+            return None
 
     @enddate.setter
-    def enddate(self, value):
-        self.enddate = value
+    def enddate(self, enddate):
+        """
+        Args:
+            enddate (str): Date and time (ISO 8601, European)
+        """
+        self._enddate = self._tools.to_date(enddate)
 
     @property
     def intervaltype(self):
-        return self.intervaltype
+        """
+        Returns:
+            intervaltype (str or None): "day", "6min", None
+        """
+        if self._intervaltype == "day" or self._intervaltype == "6min":
+            return self._intervaltype
+        else:
+            return None
 
     @intervaltype.setter
-    def intervaltype(self, value):
-        self.intervaltype = value
+    def intervaltype(self, intervaltype):
+        """
+        Args:
+            intervaltype (str):
+        """
+        self._intervaltype = intervaltype
 
     @property
     def data(self):
-        return self.data
+        """
+        Returns:
+            data (list): with eliqonline.datavalues
+        """
+        if isinstance(self._data, list):
+            return self._data
+        else:
+            return None
 
     @data.setter
-    def data(self, value):
-        self.data = value
+    def data(self, data):
+        """
+        Args:
+            data (list): with eliqonline.datavalues
+        """
+        self._data = data
