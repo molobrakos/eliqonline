@@ -22,4 +22,4 @@ from .data import Data
 from .datavalues import DataValues
 
 __all__ = ["API", "DataNow", "Data", "DataValues"]
-__version__ = "1.0.5"
+__version__ = "1.0.6"
