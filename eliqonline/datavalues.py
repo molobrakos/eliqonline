@@ -24,6 +24,15 @@ class DataValues(object):
     """ Class for Eliq's Data values """
 
     def __init__(self):
+        """
+        DataValues:
+            _avgpower: average power in Watt
+            _energy: total power in Watt
+            _temp_out: temperature outside
+            _time_start: date and time of start
+            _time_end: date and time of end
+            _tools: tools
+        """
         self._avgpower = None
         self._energy = None
         self._temp_out = None
