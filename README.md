@@ -6,6 +6,11 @@ A simple API libary for Eliq Online.
 For more information see Eliq Online API forum thread; 
 https://my.eliq.se/knowledge/sv-SE/49-eliq-online/299-eliq-online-api
 
+## Installation
+Install with pip
+```
+sudo pip install eliqonline
+```
 
 ## Code examples
 ### Current power usage
