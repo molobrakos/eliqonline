@@ -8,7 +8,6 @@ help:
 	@echo "      clean: clean project"
 	@echo "      pep8: run flake8 (pep8) on project"
 	@echo "      lint: run pylint on project"
-	@echo "      push: push to master"
 	@echo "      test: run tests"
 	@echo ""
 
