@@ -9,4 +9,3 @@ python:
   - "pypy"
   - "pypy3"
 script: nosetests
-after_success: coveralls
