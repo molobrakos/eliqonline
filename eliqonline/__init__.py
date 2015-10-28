@@ -22,5 +22,5 @@ from .data import Data
 from .datavalues import DataValues
 from .tools import Tools
 
-__all__ = ["API", "DataNow", "Data", "DataValues"]
+__all__ = ["API", "DataNow", "Data", "DataValues", "Tools"]
 __version__ = "1.0.6"
