@@ -56,7 +56,6 @@ class Tools(object):
         api_open = urllib.urlopen(api_url)
         api_code = api_open.getcode()
         api_content = api_open.read()
-        api_content = api_content.decode('utf-8')
 
         # On http 400 (bad request), print out the error and return None.
         if api_code == 400:
