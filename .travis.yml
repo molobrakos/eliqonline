@@ -12,6 +12,7 @@ python:
 install:
     - pip install python-coveralls
     - pip install nose
+    - pip install mock
 script:
     nosetests --with-coverage --cover-package eliqonline
 after_success:
