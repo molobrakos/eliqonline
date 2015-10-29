@@ -4,7 +4,7 @@
 
 ## Information
 A simple API library for Eliq Online.
-For more information see Eliq Online API forum thread; 
+For more information, see Eliq Online API forum thread; 
 https://my.eliq.se/knowledge/sv-SE/49-eliq-online/299-eliq-online-api
 
 ## Installation
@@ -15,7 +15,7 @@ $ sudo pip install eliqonline
 
 ## Code examples
 ### Current power usage
-Getting the current powerusage
+Getting the current power usage
 ```python
 #! /usr/bin/env python
 import eliqonline
