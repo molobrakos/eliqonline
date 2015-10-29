@@ -10,7 +10,7 @@ https://my.eliq.se/knowledge/sv-SE/49-eliq-online/299-eliq-online-api
 ## Installation
 Install with pip
 ```
-sudo pip install eliqonline
+$ sudo pip install eliqonline
 ```
 
 ## Code examples

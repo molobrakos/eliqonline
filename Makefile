@@ -9,7 +9,8 @@ help:
 	@echo "      pep8: run flake8 (pep8) on project"
 	@echo "      lint: run pylint on project"
 	@echo "      test: run tests"
-	@echo "      pypi: register and upload to pypi/test"
+	@echo "      pypi: register and upload to pypi"
+	@echo "      pypitest: register and upload to pypitest"
 	@echo ""
 
 clean:
@@ -25,11 +26,13 @@ lint:
 	pylint -E eliqonline
 
 test:
-	nosetests -v --with-coverage --cover-package eliqonline 
+	nosetests --with-coverage --cover-package eliqonline 
 
-pypi:
+pypitest:
 	python setup.py register -r pypitest
 	python setup.py sdist upload -r pypitest
+
+pypi:
 	python setup.py register -r pypi
 	python setup.py sdist upload -r pypi
 

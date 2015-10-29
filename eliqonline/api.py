@@ -24,7 +24,7 @@ from .datavalues import DataValues
 from .tools import Tools
 
 
-class API():
+class API(object):
     """ API class for Eliq Online API  """
 
     def __init__(self, access_token):
@@ -37,8 +37,8 @@ class API():
             intervaltype (str):
                 day
                 6min
-            enddate (str):
-            channelid (int):
+            enddate (str): optional
+            channelid (int): optinal
 
         Returns:
             eliqonline.data
@@ -64,6 +64,12 @@ class API():
             return eliq_data
 
     def _json_to_data(self, jsonData):
+        """
+        Args:
+            jsonData: (data)
+        Returns:
+            list: with DataValues
+        """
         eliq_data = Data()
         eliq_data.startdate = jsonData["startdate"]
         eliq_data.intervaltype = jsonData["intervaltype"]

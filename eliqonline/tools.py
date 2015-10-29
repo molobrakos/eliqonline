@@ -20,7 +20,7 @@ import urllib
 from datetime import datetime
 
 
-class Tools():
+class Tools(object):
     """ Tool class for Eliq Online API  """
 
     # Base url to Eliq Online API

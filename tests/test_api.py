@@ -19,7 +19,7 @@
 import unittest
 import sys
 from .unittools import UnitTools
-# from datetime import datetime
+from mock import patch, Mock
 
 sys.path.append('.')
 
@@ -35,3 +35,95 @@ class TestAPI(unittest.TestCase):
 
     def test_init(self):
         self.assertEqual(self.access_token, self.api._tools.ACCESS_TOKEN)
+
+    @patch("eliqonline.tools.urllib.urlopen")
+    def test_get_data_now(self, mock_urlopen):
+        channelid_value = 123
+        createddate_value = self.unit_tools.get_datetime_today()
+        createddate_string = self.unit_tools.datetime_to_string(
+            createddate_value
+        )
+        power_value = float(
+            "{0:.5f}".format(
+                self.unit_tools.get_random_float()
+            )
+        )
+
+        json_mock = Mock()
+        json_test_data = (
+            '{'
+            + '"channelid":%s,' % channelid_value
+            + '"createddate": "%s",' % createddate_string
+            + '"power":%s' % power_value
+            + '}'
+        )
+        json_mock.read.side_effect = [json_test_data]
+        mock_urlopen.return_value = json_mock
+
+        data_now = self.api.get_data_now(channelid_value)
+
+        self.assertEqual(channelid_value, data_now.channelid)
+        self.assertEqual(createddate_value, data_now.createddate)
+        self.assertEqual(power_value, data_now.power)
+
+    @patch("eliqonline.tools.urllib.urlopen")
+    def test_get_data(self, mock_urlopen):
+        channelid_value = 12345
+        startdate_value = self.unit_tools.get_datetime_today()
+        startdate_string = self.unit_tools.datetime_to_string(
+            startdate_value
+        )
+
+        enddate_value = self.unit_tools.get_datetime_today()
+        enddate_string = self.unit_tools.datetime_to_string(
+            enddate_value
+        )
+        intervaltype_value = "day"
+
+        json_mock = Mock()
+        json_test_data = (
+            '{'
+            + '"channelid":%s,' % channelid_value
+            + '"startdate":"%s",' % startdate_string
+            + '"enddate":"%s",' % enddate_string
+            + '"intervaltype":"%s",' % intervaltype_value
+            + '"data":['
+            + '{'
+            + '"avgpower":2442.0,'
+            + '"energy":58619.0,'
+            + '"temp_out":-0.79166666666666663,'
+            + '"time_start":"2015-10-28T00:00:00",'
+            + '"time_end":"2015-10-29T00:00:00"'
+            + '}'
+            + ']'
+            + '}'
+        )
+        json_mock.read.side_effect = [json_test_data]
+        mock_urlopen.return_value = json_mock
+
+        data = self.api.get_data(
+            startdate_string,
+            intervaltype_value,
+            enddate_string,
+            channelid_value
+        )
+
+        self.assertEqual(startdate_value, data.startdate)
+        self.assertEqual(intervaltype_value, data.intervaltype)
+        self.assertEqual(enddate_value, data.enddate)
+        self.assertTrue(isinstance(data.data, list))
+
+    @patch("eliqonline.tools")
+    def test_get_data_none(self, mock_urlopen):
+        tool_mock = Mock()
+        tool_mock.get_data_from_eliq.side_effect = None
+        mock_urlopen.return_value = tool_mock
+
+        data = self.api.get_data(
+            self.unit_tools.datetime_to_string(
+                self.unit_tools.get_datetime_today()
+            ),
+            123451
+        )
+
+        self.assertEqual(None, data)
