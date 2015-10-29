@@ -113,17 +113,3 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(enddate_value, data.enddate)
         self.assertTrue(isinstance(data.data, list))
 
-    @patch("eliqonline.tools")
-    def test_get_data_none(self, mock_urlopen):
-        tool_mock = Mock()
-        tool_mock.get_data_from_eliq.side_effect = None
-        mock_urlopen.return_value = tool_mock
-
-        data = self.api.get_data(
-            self.unit_tools.datetime_to_string(
-                self.unit_tools.get_datetime_today()
-            ),
-            123451
-        )
-
-        self.assertEqual(None, data)

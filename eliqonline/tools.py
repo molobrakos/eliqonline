@@ -16,11 +16,10 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-
 try:
     import urllib.request as urllib
 except ImportError:
-    import urllib
+    import urllib2 as urllib
 
 from datetime import datetime
 
@@ -50,19 +49,18 @@ class Tools(object):
             self.BASE_URL,
             function,
             self.ACCESS_TOKEN,
-            parameters
+            parameters.replace(" ", "%20")
         )
 
         api_open = urllib.urlopen(api_url)
-        api_code = api_open.getcode()
-        api_content = api_open.read()
 
-        # On http 400 (bad request), print out the error and return None.
-        if api_code == 400:
-            print(api_content)
-            return None
-        else:
+        try:
+            api_content = api_open.read()
             return api_content
+        except urllib.HTTPError as e:
+            if e.code == 400:
+                print(api_content)
+            return None
 
     def maybe_to_date(self, date_string):
         if date_string is not None:
