@@ -17,7 +17,7 @@
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 try:
-    import urllib.request as urllib
+    import urllib.request as urllib  # pylint: disable=no-name-in-module
 except ImportError:
     import urllib2 as urllib
 
@@ -52,15 +52,17 @@ class Tools(object):
             parameters.replace(" ", "%20")
         )
 
-        api_open = urllib.urlopen(api_url)
+        api_open = None
 
         try:
-            api_content = api_open.read()
-            return api_content
+            api_open = urllib.urlopen(api_url)
         except urllib.HTTPError as e:
-            if e.code == 400:
-                print(api_content)
+            print(e)
+            print(e.read())
             return None
+
+        api_content = api_open.read()
+        return api_content
 
     def maybe_to_date(self, date_string):
         if date_string is not None:
