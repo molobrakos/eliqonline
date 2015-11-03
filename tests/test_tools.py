@@ -19,6 +19,7 @@
 import unittest
 import sys
 from .unittools import UnitTools
+import datetime
 
 sys.path.append('.')
 
@@ -26,7 +27,6 @@ import eliqonline
 
 
 class TestTools(unittest.TestCase):
-
     def setUp(self):
         self.unit_tools = UnitTools()
         self.token_string = self.unit_tools.get_random_string()
@@ -69,6 +69,13 @@ class TestTools(unittest.TestCase):
     def test_maybe_to_float_none(self):
         value = self.tools.maybe_to_float(None)
         self.assertEqual(None, value)
+
+    def test_date_to_string(self):
+        test_date = datetime.datetime.today()
+        test_date_str = self.tools.date_to_str(test_date)
+        self.assertTrue(isinstance(test_date_str, str))
+
+        self.assertEqual(None, self.tools.date_to_str("hello"))
 
 if __name__ == '__main__':
         unittest.main()
