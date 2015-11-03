@@ -23,6 +23,8 @@ from .data import Data
 from .datavalues import DataValues
 from .tools import Tools
 
+import datetime
+
 
 class API(object):
     """ API class for Eliq Online API  """
@@ -33,8 +35,8 @@ class API(object):
     def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
         """
         Args:
-            startdate (str):
-            intervaltype (str):
+            startdate (str or datetime):
+            intervaltype (str or datetime):
                 day
                 6min
             enddate (str): optional
@@ -44,6 +46,12 @@ class API(object):
             eliqonline.data
         """
         function = "data"
+
+        if isinstance(startdate, datetime.date):
+            startdate = self._tools.date_to_str(startdate)
+
+        if isinstance(enddate, datetime.date):
+            enddate = self._tools.date_to_str(enddate)
 
         parameters = "&startdate=%s" % startdate
         parameters += "&intervaltype=%s" % intervaltype
