@@ -21,7 +21,7 @@ try:
 except ImportError:
     import urllib2 as urllib
 
-from datetime import datetime
+import datetime
 
 
 class Tools(object):
@@ -35,6 +35,9 @@ class Tools(object):
 
     # Date format, (ISO 8601, European)
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
+    # Date format for url
+    DATE_FORMAT_URL = "%Y-%m-%d %H:%M:%S"
 
     def __init__(self, access_token=None):
         if access_token is not None:
@@ -71,7 +74,7 @@ class Tools(object):
             return None
 
     def to_date(self, date_string):
-        return datetime.strptime(
+        return datetime.datetime.strptime(
             date_string,
             self.DATE_FORMAT
         )
@@ -79,5 +82,11 @@ class Tools(object):
     def maybe_to_float(self, float_string):
         if float_string is not None:
             return float(float_string)
+        else:
+            return None
+
+    def date_to_str(self, dateObj):
+        if isinstance(dateObj, datetime.date):
+            return str(dateObj.strftime(self.DATE_FORMAT_URL))
         else:
             return None
