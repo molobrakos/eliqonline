@@ -64,12 +64,9 @@ class API(object):
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
-        if eliqData is None:
-            return None
-        else:
-            jsonData = json.loads(eliqData)
-            eliq_data = self._json_to_data(jsonData)
-            return eliq_data
+        jsonData = json.loads(eliqData)
+        eliq_data = self._json_to_data(jsonData)
+        return eliq_data
 
     def _json_to_data(self, jsonData):
         """
@@ -112,12 +109,9 @@ class API(object):
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
-        if eliqData is None:
-            return None
-        else:
-            json_data = json.loads(eliqData)
-            eliq_data_now = DataNow()
-            eliq_data_now.power = float(json_data["power"])
-            eliq_data_now.channelid = json_data["channelid"]
-            eliq_data_now.createddate = json_data["createddate"]
-            return eliq_data_now
+        json_data = json.loads(eliqData)
+        eliq_data_now = DataNow()
+        eliq_data_now.power = float(json_data["power"])
+        eliq_data_now.channelid = json_data["channelid"]
+        eliq_data_now.createddate = json_data["createddate"]
+        return eliq_data_now
