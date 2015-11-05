@@ -64,12 +64,9 @@ class API(object):
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
-        if eliqData is None:
-            return None
-        else:
-            jsonData = json.loads(eliqData)
-            eliq_data = self._json_to_data(jsonData)
-            return eliq_data
+        jsonData = json.loads(eliqData)
+        eliq_data = self._json_to_data(jsonData)
+        return eliq_data
 
     def _json_to_data(self, jsonData):
         """
