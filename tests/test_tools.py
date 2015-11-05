@@ -22,6 +22,11 @@ from .unittools import UnitTools
 import datetime
 from mock import patch, Mock
 
+try:
+    import urllib.request as urllib  # pylint: disable=no-name-in-module
+except ImportError:
+    import urllib2 as urllib
+
 sys.path.append('.')
 
 import eliqonline
@@ -89,6 +94,12 @@ class TestTools(unittest.TestCase):
         data = self.tools.get_data_from_eliq(test_function)
 
         self.assertEqual(json_data, data)
+
+    def test_get_data_from_eliq_httperror(self):
+        self.assertRaises(
+            urllib.HTTPError,
+            self.tools.get_data_from_eliq("data_now")
+        )
 
 
 if __name__ == '__main__':
