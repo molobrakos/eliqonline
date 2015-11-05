@@ -102,9 +102,9 @@ class TestAPI(unittest.TestCase):
         mock_urlopen.return_value = json_mock
 
         data = self.api.get_data(
-            startdate_string,
+            startdate_value,
             intervaltype_value,
-            enddate_string,
+            enddate_value,
             channelid_value
         )
 
@@ -112,4 +112,3 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(intervaltype_value, data.intervaltype)
         self.assertEqual(enddate_value, data.enddate)
         self.assertTrue(isinstance(data.data, list))
-
