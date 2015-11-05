@@ -20,6 +20,7 @@ import unittest
 import sys
 from .unittools import UnitTools
 import datetime
+from mock import patch, Mock
 
 sys.path.append('.')
 
@@ -76,6 +77,19 @@ class TestTools(unittest.TestCase):
         self.assertTrue(isinstance(test_date_str, str))
 
         self.assertEqual(None, self.tools.date_to_str("hello"))
+
+    @patch("eliqonline.tools.urllib.urlopen")
+    def test_get_data_from_eliq(self, mock_urlopen):
+        json_mock = Mock()
+        json_data = "hello"
+        json_mock.read.side_effect = [json_data]
+        mock_urlopen.return_value = json_mock
+
+        test_function = "data_now"
+        data = self.tools.get_data_from_eliq(test_function)
+
+        self.assertEqual(json_data, data)
+
 
 if __name__ == '__main__':
         unittest.main()
