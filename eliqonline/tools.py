@@ -65,6 +65,8 @@ class Tools(object):
             return None
 
         api_content = api_open.read()
+        if isinstance(api_content, bytes):
+            return api_content.decode("utf-8")
         return api_content
 
     def maybe_to_date(self, date_string):
