@@ -57,12 +57,7 @@ class Tools(object):
 
         api_open = None
 
-        try:
-            api_open = urllib.urlopen(api_url)
-        except urllib.HTTPError as e:
-            print(e)
-            print(e.read())
-            return None
+        api_open = urllib.urlopen(api_url)
 
         api_content = api_open.read()
         if isinstance(api_content, bytes):
