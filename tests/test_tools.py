@@ -95,11 +95,6 @@ class TestTools(unittest.TestCase):
 
         self.assertEqual(json_data, data)
 
-    def test_get_data_from_eliq_httperror(self):
-        self.assertRaises(
-            urllib.HTTPError,
-            self.tools.get_data_from_eliq("data_now")
-        )
 
 
 if __name__ == '__main__':
