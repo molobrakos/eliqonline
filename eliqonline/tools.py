@@ -28,7 +28,7 @@ class Tools(object):
     """ Tool class for Eliq Online API  """
 
     # Base url to Eliq Online API
-    BASE_URL = "https://my.eliq.se/api"
+    BASE_URL = "https://my.eliq.io/api"
 
     # Access token for API
     ACCESS_TOKEN = None
