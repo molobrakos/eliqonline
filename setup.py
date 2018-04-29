@@ -27,7 +27,7 @@ def find_version(*file_paths):
 
 
 def get_download_url(version):
-    return "https://github.com/6D66/eliq/tarball/%s" % version
+    return "https://github.com/6d66/eliq/tarball/%s" % version
 
 version = find_version("eliqonline", "__init__.py")
 package_name = "eliqonline"
@@ -37,9 +37,9 @@ setup(
     packages=[package_name],
     version=find_version(package_name, "__init__.py"),
     description='Eliq Online API Library',
-    author='Magnus F',
-    author_email='magnus@fet.nu',
-    url='https://github.com/6D66/eliq/',
+    author='6d66',
+    author_email='',
+    url='https://github.com/6d66/eliq/',
     download_url=get_download_url(version),
     keywords=['Eliq', 'Eliq Online', 'Eliq Online API'],
     classifiers=[],

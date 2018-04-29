@@ -1,11 +1,9 @@
 # Eliq Online API Library
-[![Pypi version](https://img.shields.io/pypi/v/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Pypi downloads]( https://img.shields.io/pypi/dm/eliqonline.svg)](https://pypi.python.org/pypi/eliqonline) [![Build Status](https://travis-ci.org/frostefjell/eliq.svg)](https://travis-ci.org/frostefjell/eliq) [![Coverage Status](https://coveralls.io/repos/6D66/eliq/badge.svg?branch=master&service=github)](https://coveralls.io/github/6D66/eliq?branch=master)
-
 
 ## Information
 A simple API library for Eliq Online.
-For more information, see Eliq Online API forum thread; 
-https://my.eliq.se/knowledge/sv-SE/49-eliq-online/299-eliq-online-api
+For more information, see Eliq Online API;
+https://eliq.zendesk.com/hc/en-us/articles/115002708449-API-Eliq-Online
 
 ## Installation
 Install with pip

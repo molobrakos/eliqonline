@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-#  A library for Eliq Online API
-#  Copyright (C) 2015 Magnus F <magnus@fet.nu>
+# A library for Eliq Online API
+# 6d66
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser Public License as published by
