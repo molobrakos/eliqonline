@@ -36,7 +36,7 @@ class TestAPI(unittest.TestCase):
     def test_init(self):
         self.assertEqual(self.access_token, self.api._tools.ACCESS_TOKEN)
 
-    @patch("eliqonline.tools.urllib.urlopen")
+    @patch("eliqonline.tools.Session.get")
     def test_get_data_now(self, mock_urlopen):
         channelid_value = 123
         createddate_value = self.unit_tools.get_datetime_today()
@@ -57,7 +57,7 @@ class TestAPI(unittest.TestCase):
             + '"power":%s' % power_value
             + '}'
         )
-        json_mock.read.side_effect = [json_test_data]
+        json_mock.text = json_test_data
         mock_urlopen.return_value = json_mock
 
         data_now = self.api.get_data_now(channelid_value)
@@ -66,7 +66,7 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(createddate_value, data_now.createddate)
         self.assertEqual(power_value, data_now.power)
 
-    @patch("eliqonline.tools.urllib.urlopen")
+    @patch("eliqonline.tools.Session.get")
     def test_get_data(self, mock_urlopen):
         channelid_value = 12345
         startdate_value = self.unit_tools.get_datetime_today()
@@ -98,7 +98,7 @@ class TestAPI(unittest.TestCase):
             + ']'
             + '}'
         )
-        json_mock.read.side_effect = [json_test_data]
+        json_mock.text = json_test_data
         mock_urlopen.return_value = json_mock
 
         data = self.api.get_data(

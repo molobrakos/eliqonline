@@ -83,11 +83,11 @@ class TestTools(unittest.TestCase):
 
         self.assertEqual(None, self.tools.date_to_str("hello"))
 
-    @patch("eliqonline.tools.urllib.urlopen")
+    @patch("eliqonline.tools.Session.get")
     def test_get_data_from_eliq(self, mock_urlopen):
         json_mock = Mock()
         json_data = "hello"
-        json_mock.read.side_effect = [json_data]
+        json_mock.text = json_data
         mock_urlopen.return_value = json_mock
 
         test_function = "data_now"
