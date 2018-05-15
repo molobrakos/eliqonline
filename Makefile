@@ -1,7 +1,7 @@
 help:
 	@echo "  ___ _ _       ___       _ _            _   ___ ___ "
 	@echo " | __| (_)__ _ / _ \ _ _ | (_)_ _  ___  /_\ | _ \_ _|"
-	@echo " | _|| | / _' | (_) | ' \| | | ' \/ -_)/ _ \|  _/| | " 
+	@echo " | _|| | / _' | (_) | ' \| | | ' \/ -_)/ _ \|  _/| | "
 	@echo " |___|_|_\__, |\___/|_||_|_|_|_||_\___/_/ \_\_| |___|"
 	@echo "            |_| Python Library                        "
 	@echo "make:"
@@ -26,14 +26,12 @@ lint:
 	pylint -E eliqonline
 
 test:
-	nosetests --with-coverage --cover-package eliqonline 
+	nosetests --with-coverage --cover-package eliqonline
 
 pypitest:
-	python setup.py register -r pypitest
-	python setup.py sdist upload -r pypitest
+	python setup.py sdist
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 pypi:
-	python setup.py register -r pypi
-	python setup.py sdist upload -r pypi
-
-
+	python setup.py sdist
+	twine upload dist/*
