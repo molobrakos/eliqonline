@@ -35,3 +35,6 @@ pypitest:
 pypi:
 	python setup.py sdist
 	twine upload dist/*
+
+run:
+	@python -m eliqonline -vv datanow
