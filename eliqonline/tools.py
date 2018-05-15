@@ -16,11 +16,8 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-try:
-    import urllib.request as urllib  # pylint: disable=no-name-in-module
-except ImportError:
-    import urllib2 as urllib
-
+from requests import Session
+from requests.compat import urljoin
 import datetime
 
 
@@ -28,7 +25,7 @@ class Tools(object):
     """ Tool class for Eliq Online API  """
 
     # Base url to Eliq Online API
-    BASE_URL = "https://my.eliq.io/api"
+    BASE_URL = "https://my.eliq.io/api/"
 
     # Access token for API
     ACCESS_TOKEN = None
@@ -39,30 +36,24 @@ class Tools(object):
     # Date format for url
     DATE_FORMAT_URL = "%Y-%m-%d %H:%M:%S"
 
+    session = Session()
+
     def __init__(self, access_token=None):
         if access_token is not None:
             self.ACCESS_TOKEN = access_token
 
     def get_data_from_eliq(self, function, parameters=None):
         if parameters is None:
-            parameters = ""
+            parameters = {}
 
-        # Build API request url
-        api_url = "%s/%s?accesstoken=%s%s" % (
+        api_url = urljoin(
             self.BASE_URL,
             function,
-            self.ACCESS_TOKEN,
-            parameters.replace(" ", "%20")
         )
 
-        api_open = None
+        parameters.update(accesstoken=self.ACCESS_TOKEN)
 
-        api_open = urllib.urlopen(api_url)
-
-        api_content = api_open.read()
-        if isinstance(api_content, bytes):
-            return api_content.decode("utf-8")
-        return api_content
+        return self.session.get(api_url, params=parameters).text
 
     def maybe_to_date(self, date_string):
         if date_string is not None:

@@ -41,6 +41,8 @@ setup(
     author_email='',
     url='https://github.com/6d66/eliq/',
     download_url=get_download_url(version),
+    install_requires=list(
+        open('requirements.txt').read().strip().split()),
     keywords=['Eliq', 'Eliq Online', 'Eliq Online API'],
     classifiers=[],
 )

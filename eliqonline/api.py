@@ -53,14 +53,14 @@ class API(object):
         if isinstance(enddate, datetime.date):
             enddate = self._tools.date_to_str(enddate)
 
-        parameters = "&startdate=%s" % startdate
-        parameters += "&intervaltype=%s" % intervaltype
+        parameters = dict(startdate=startdate,
+                          intervaltype=intervaltype)
 
         if enddate is not None:
-            parameters += "&enddate=%s" % enddate
+            parameters.update(enddate=enddate)
 
         if channelid is not None:
-            parameters += "&channelid=%d" % channelid
+            parameters.update(channelid=channelid)
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
@@ -102,10 +102,10 @@ class API(object):
             eliqonline.datanow
         """
         function = "datanow"
-        parameters = None
+        parameters = {}
 
         if channelid is not None:
-            parameters = "&channelid=%d" % channelid
+            parameters.update(channelid=channelid)
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
