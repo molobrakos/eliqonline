@@ -53,7 +53,7 @@ class Tools(object):
 
         parameters.update(accesstoken=self.ACCESS_TOKEN)
 
-        return self.session.get(api_url, params=parameters).text
+        return self.session.get(api_url, params=parameters).json()
 
     def maybe_to_date(self, date_string):
         if date_string is not None:

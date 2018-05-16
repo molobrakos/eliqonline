@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-import json
-
 from .datanow import DataNow
 from .data import Data
 from .datavalues import DataValues
@@ -64,7 +62,7 @@ class API(object):
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
-        jsonData = json.loads(eliqData)
+        jsonData = eliqData
         eliq_data = self._json_to_data(jsonData)
         return eliq_data
 
@@ -109,7 +107,7 @@ class API(object):
 
         eliqData = self._tools.get_data_from_eliq(function, parameters)
 
-        json_data = json.loads(eliqData)
+        json_data = eliqData
         eliq_data_now = DataNow()
         eliq_data_now.power = float(json_data["power"])
         eliq_data_now.channelid = json_data["channelid"]

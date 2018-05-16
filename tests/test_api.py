@@ -36,7 +36,7 @@ class TestAPI(unittest.TestCase):
     def test_init(self):
         self.assertEqual(self.access_token, self.api._tools.ACCESS_TOKEN)
 
-    @patch("eliqonline.tools.Session.get")
+    @patch("eliqonline.tools.Tools.get_data_from_eliq")
     def test_get_data_now(self, mock_urlopen):
         channelid_value = 123
         createddate_value = self.unit_tools.get_datetime_today()
@@ -49,16 +49,12 @@ class TestAPI(unittest.TestCase):
             )
         )
 
-        json_mock = Mock()
-        json_test_data = (
-            '{'
-            + '"channelid":%s,' % channelid_value
-            + '"createddate": "%s",' % createddate_string
-            + '"power":%s' % power_value
-            + '}'
-        )
-        json_mock.text = json_test_data
-        mock_urlopen.return_value = json_mock
+        json_test_data = dict(
+            channelid = channelid_value,
+            createddate = createddate_string,
+            power = power_value)
+
+        mock_urlopen.return_value = json_test_data
 
         data_now = self.api.get_data_now(channelid_value)
 
@@ -66,7 +62,7 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(createddate_value, data_now.createddate)
         self.assertEqual(power_value, data_now.power)
 
-    @patch("eliqonline.tools.Session.get")
+    @patch("eliqonline.tools.Tools.get_data_from_eliq")
     def test_get_data(self, mock_urlopen):
         channelid_value = 12345
         startdate_value = self.unit_tools.get_datetime_today()
@@ -80,26 +76,21 @@ class TestAPI(unittest.TestCase):
         )
         intervaltype_value = "day"
 
-        json_mock = Mock()
-        json_test_data = (
-            '{'
-            + '"channelid":%s,' % channelid_value
-            + '"startdate":"%s",' % startdate_string
-            + '"enddate":"%s",' % enddate_string
-            + '"intervaltype":"%s",' % intervaltype_value
-            + '"data":['
-            + '{'
-            + '"avgpower":2442.0,'
-            + '"energy":58619.0,'
-            + '"temp_out":-0.79166666666666663,'
-            + '"time_start":"2015-10-28T00:00:00",'
-            + '"time_end":"2015-10-29T00:00:00"'
-            + '}'
-            + ']'
-            + '}'
+        json_test_data = dict(
+            channelid = channelid_value,
+            startdate = startdate_string,
+            enddate = enddate_string,
+            intervaltype = intervaltype_value,
+            data = [
+                dict(avgpower=2442.0,
+                     energy=58619.0,
+                     temp_out=-0.79166666666666663,
+                     time_start="2015-10-28T00:00:00",
+                     time_end="2015-10-29T00:00:00")
+            ]
         )
-        json_mock.text = json_test_data
-        mock_urlopen.return_value = json_mock
+
+        mock_urlopen.return_value = json_test_data
 
         data = self.api.get_data(
             startdate_value,
