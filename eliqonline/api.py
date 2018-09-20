@@ -39,7 +39,7 @@ class API(object):
         self._session = Session()
         self._access_token = access_token
 
-    def _request_data(self, function, parameters=None):
+    def _request_data(self, function, parameters=None, channelid=None):
         if not parameters:
             parameters = {}
 
@@ -49,6 +49,9 @@ class API(object):
         )
 
         parameters.update(accesstoken=self._access_token)
+
+        if channelid:
+            parameters.update(channelid=channelid)
 
         return self._session.get(api_url, params=parameters).json()
 
@@ -71,10 +74,7 @@ class API(object):
         if enddate:
             parameters.update(enddate=enddate.strftime(DATE_FORMAT))
 
-        if channelid:
-            parameters.update(channelid=channelid)
-
-        return self._request_data('data', parameters)
+        return self._request_data('data', parameters, channelid=channelid)
 
     def get_data_now(self, channelid=None):
         """
@@ -86,7 +86,4 @@ class API(object):
         """
         parameters = {}
 
-        if channelid:
-            parameters.update(channelid=channelid)
-
-        return self._request_data('datanow', parameters)
+        return self._request_data('datanow', parameters, channelid=channelid)
