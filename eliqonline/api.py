@@ -65,15 +65,11 @@ class API(object):
         Returns:
             eliqonline.data
         """
-        startdate = startdate.strftime(DATE_FORMAT)
-        if enddate:
-            enddate = enddate.strftime(DATE_FORMAT)
-
-        parameters = dict(startdate=startdate,
+        parameters = dict(startdate=startdate.strftime(DATE_FORMAT),
                           intervaltype=intervaltype)
 
         if enddate is not None:
-            parameters.update(enddate=enddate)
+            parameters.update(enddate=enddate.strftime(DATE_FORMAT))
 
         if channelid is not None:
             parameters.update(channelid=channelid)
