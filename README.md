@@ -64,7 +64,7 @@ Example output:
 
 ```
 $ python -m eliqonline now
-Current power: 408 kw
+Current power: 408 w
 
 $ python -m eliqonline week
 2018-09-13T00:00:00 - 2018-09-14T00:00:00: average power: 2231 W
