@@ -29,10 +29,6 @@ BASE_URL = "https://my.eliq.io/api/"
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-def date_to_str(date):
-    return date.strftime(DATE_FORMAT)
-
-
 class API(object):
     """ API class for Eliq Online API  """
 
@@ -68,11 +64,8 @@ class API(object):
         """
         function = "data"
 
-        if isinstance(startdate, datetime.date):
-            startdate = date_to_str(startdate)
-
-        if isinstance(enddate, datetime.date):
-            enddate = date_to_str(enddate)
+        startdate = startdate.strftime(DATE_FORMAT)
+        enddate = enddate.strftime(DATE_FORMAT)
 
         parameters = dict(startdate=startdate,
                           intervaltype=intervaltype)
