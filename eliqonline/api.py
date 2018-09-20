@@ -16,9 +16,6 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-from .datanow import DataNow
-from .data import Data
-from .datavalues import DataValues
 from .tools import Tools
 
 import datetime
@@ -60,36 +57,7 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        eliqData = self._tools.get_data_from_eliq(function, parameters)
-
-        jsonData = eliqData
-        eliq_data = self._json_to_data(jsonData)
-        return eliq_data
-
-    def _json_to_data(self, jsonData):
-        """
-        Args:
-            jsonData: (data)
-        Returns:
-            list: with DataValues
-        """
-        eliq_data = Data()
-        eliq_data.startdate = jsonData["startdate"]
-        eliq_data.intervaltype = jsonData["intervaltype"]
-        eliq_data.enddate = jsonData["enddate"]
-        eliq_data.channelid = jsonData["channelid"]
-
-        eliq_data.data = []
-        for json_data_values in jsonData["data"]:
-            data_values = DataValues()
-            data_values.avgpower = json_data_values["avgpower"]
-            data_values.energy = json_data_values["energy"]
-            data_values.temp_out = json_data_values["temp_out"]
-            data_values.time_end = json_data_values["time_end"]
-            data_values.time_start = json_data_values["time_start"]
-            eliq_data.data.append(data_values)
-
-        return eliq_data
+        return self._tools.get_data_from_eliq(function, parameters)
 
     def get_data_now(self, channelid=None):
         """
@@ -105,11 +73,4 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        eliqData = self._tools.get_data_from_eliq(function, parameters)
-
-        json_data = eliqData
-        eliq_data_now = DataNow()
-        eliq_data_now.power = float(json_data["power"])
-        eliq_data_now.channelid = json_data["channelid"]
-        eliq_data_now.createddate = json_data["createddate"]
-        return eliq_data_now
+        return self._tools.get_data_from_eliq(function, parameters)

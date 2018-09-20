@@ -5,7 +5,7 @@ ELIQ Online
 Usage:
   eliq (-h | --help)
   eliq --version
-  eliq [-v|-vv] [options] datanow
+  eliq [-v|-vv] [options] now
   eliq [-v|-vv] [options] today
   eliq [-v|-vv] [options] daily
   eliq [-v|-vv] [options] monthly
@@ -65,8 +65,8 @@ if __name__ == "__main__":
     config = read_config()
     access_token = args.get('-t') or config.get('accesstoken')
     api = API(access_token=access_token)
-    if args['datanow']:
-        power = api.get_data_now().power
+    if args['now']:
+        power = api.get_data_now()['power']
         print('Current power: %d kw' % power)
     elif args['today']:
         from datetime import datetime
@@ -74,12 +74,11 @@ if __name__ == "__main__":
         startdate = datetime(year=now.year, month=now.month, day=now.day)
         enddate = datetime(year=now.year, month=now.month, day=now.day, hour=23, minute=59, second=59)
         data = api.get_data(startdate=startdate, enddate=enddate, intervaltype='6min')
-        print(data)
-        for item_data in data.data:
+        for item_data in data['data']:
             print("%s - %s: average power: %4d W" % (
-                item_data.time_start,
-                item_data.time_end,
-                item_data.avgpower
+                item_data['time_start'],
+                item_data['time_end'],
+                item_data['avgpower']
             ))
     elif args['dayly']:
         data = api.get_data()

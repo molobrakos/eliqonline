@@ -17,9 +17,6 @@
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 from .api import API
-from .datanow import DataNow
-from .data import Data
-from .datavalues import DataValues
 from .tools import Tools
 
 __all__ = ["API", "DataNow", "Data", "DataValues", "Tools"]
