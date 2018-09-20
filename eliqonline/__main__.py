@@ -7,9 +7,9 @@ Usage:
   eliq --version
   eliq [-v|-vv] [options] now
   eliq [-v|-vv] [options] today
-  eliq [-v|-vv] [options] daily
-  eliq [-v|-vv] [options] monthly
-  eliq [-v|-vv] [options] yearly
+  eliq [-v|-vv] [options] week
+  eliq [-v|-vv] [options] month
+  eliq [-v|-vv] [options] year
 
 Options:
   -t <token>      Access token
@@ -24,6 +24,7 @@ from sys import stderr
 from os.path import join, expanduser
 from os import environ as env
 from yaml import safe_load as load_yaml
+from datetime import datetime, timedelta
 
 from eliqonline import API, __version__
 
@@ -65,26 +66,38 @@ if __name__ == "__main__":
     config = read_config()
     access_token = args.get('-t') or config.get('accesstoken')
     api = API(access_token=access_token)
+
+    now = datetime.now()
+
     if args['now']:
         power = api.get_data_now()['power']
         print('Current power: %d kw' % power)
-    elif args['today']:
-        from datetime import datetime
-        now = datetime.now()
+        exit()
+
+    if args['today']:
         startdate = datetime(year=now.year, month=now.month, day=now.day)
         enddate = datetime(year=now.year, month=now.month, day=now.day,
                            hour=23, minute=59, second=59)
-        data = api.get_data(startdate=startdate, enddate=enddate,
-                            intervaltype=api.INTERVAL_6MIN)
-        for item_data in data['data']:
-            print("%s - %s: average power: %4d W" % (
-                item_data['time_start'],
-                item_data['time_end'],
-                item_data['avgpower']
-            ))
-    elif args['dayly']:
-        data = api.get_data()
-    elif args['monthly']:
-        data = api.get_data()
-    elif args['yearly']:
-        data = api.get_data()
+        intervaltype = api.INTERVAL_6MIN
+    elif args['week']:
+        startdate = datetime(year=now.year, month=now.month, day=now.day) - timedelta(days=7)
+        enddate = now
+        intervaltype = api.INTERVAL_DAY
+    elif args['month']:
+        startdate = datetime(year=now.year, month=now.month, day=1)
+        enddate = now
+        intervaltype = api.INTERVAL_DAY
+    elif args['year']:
+        startdate = datetime(year=now.year, month=1, day=1)
+        enddate = now
+        intervaltype = api.INTERVAL_DAY
+
+    data = api.get_data(startdate=startdate, enddate=enddate,
+                        intervaltype=api.INTERVAL_DAY)
+
+    for item_data in data['data']:
+        print("%s - %s: average power: %4s W" % (
+            item_data['time_start'],
+            item_data['time_end'],
+            str(int(item_data['avgpower'])) if item_data['avgpower'] else '?'
+        ))
