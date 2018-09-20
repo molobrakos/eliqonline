@@ -22,8 +22,7 @@ access_token = ""
 eliq_online = eliqonline.API(access_token)
 
 data_now = eliq_online.get_data_now()
-if data_now:
-    print("Power: %d W" % data_now.power)
+print("Power: %d W" % data_now['power'])
 ```
 Example output:
 ```
@@ -41,13 +40,13 @@ eliq_online = eliqonline.API(access_token)
 
 start_date = "2015-10-28 00:00"
 stop_date = "2015-10-29 00:00"
-data = eliq_online.get_data(start_date, "6min", stop_date)
+data = eliq_online.get_data(start_date, elie_online.INTERVAL_6MIN, stop_date)
 if data:
     for item_data in data.data:
         print("%s -> %s: Avg. power: %d W" % (
-            item_data.time_start.time(),
-            item_data.time_end.time(),
-            item_data.avgpower
+            item_data['time_start'],
+            item_data['time_end'],
+            item_data['avgpower']
         ))
 
 ```
