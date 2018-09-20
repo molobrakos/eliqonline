@@ -72,8 +72,10 @@ if __name__ == "__main__":
         from datetime import datetime
         now = datetime.now()
         startdate = datetime(year=now.year, month=now.month, day=now.day)
-        enddate = datetime(year=now.year, month=now.month, day=now.day, hour=23, minute=59, second=59)
-        data = api.get_data(startdate=startdate, enddate=enddate, intervaltype=api.INTERVAL_6MIN)
+        enddate = datetime(year=now.year, month=now.month, day=now.day,
+                           hour=23, minute=59, second=59)
+        data = api.get_data(startdate=startdate, enddate=enddate,
+                            intervaltype=api.INTERVAL_6MIN)
         for item_data in data['data']:
             print("%s - %s: average power: %4d W" % (
                 item_data['time_start'],

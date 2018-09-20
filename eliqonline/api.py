@@ -16,10 +16,8 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-import datetime
 from requests import Session
 from requests.compat import urljoin
-import datetime
 
 
 # Base url to Eliq Online API
