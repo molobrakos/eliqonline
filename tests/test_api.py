@@ -40,9 +40,6 @@ class TestAPI(unittest.TestCase):
     def test_get_data_now(self, mock_urlopen):
         channelid_value = 123
         createddate_value = self.unit_tools.get_datetime_today()
-        createddate_string = self.unit_tools.datetime_to_string(
-            createddate_value
-        )
         power_value = float(
             "{0:.5f}".format(
                 self.unit_tools.get_random_float()
@@ -51,7 +48,7 @@ class TestAPI(unittest.TestCase):
 
         json_test_data = dict(
             channelid = channelid_value,
-            createddate = createddate_string,
+            createddate = createddate_value,
             power = power_value)
 
         mock_urlopen.return_value = json_test_data
@@ -66,27 +63,21 @@ class TestAPI(unittest.TestCase):
     def test_get_data(self, mock_urlopen):
         channelid_value = 12345
         startdate_value = self.unit_tools.get_datetime_today()
-        startdate_string = self.unit_tools.datetime_to_string(
-            startdate_value
-        )
 
         enddate_value = self.unit_tools.get_datetime_today()
-        enddate_string = self.unit_tools.datetime_to_string(
-            enddate_value
-        )
         intervaltype_value = "day"
 
         json_test_data = dict(
             channelid = channelid_value,
-            startdate = startdate_string,
-            enddate = enddate_string,
+            startdate = startdate_value,
+            enddate = enddate_value,
             intervaltype = intervaltype_value,
             data = [
                 dict(avgpower=2442.0,
                      energy=58619.0,
                      temp_out=-0.79166666666666663,
-                     time_start="2015-10-28T00:00:00",
-                     time_end="2015-10-29T00:00:00")
+                     time_start=startdate_value,
+                     time_end=enddate_value)
             ]
         )
 
