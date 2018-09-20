@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-from .tools import Tools
-
 import datetime
 from requests import Session
 from requests.compat import urljoin
@@ -30,20 +28,6 @@ BASE_URL = "https://my.eliq.io/api/"
 # Date format for url
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-session = Session()
-
-def get_data_from_eliq(accesstoken, function, parameters=None):
-    if parameters is None:
-        parameters = {}
-
-    api_url = urljoin(
-        BASE_URL,
-        function,
-    )
-
-    parameters.update(accesstoken=accesstoken)
-
-    return session.get(api_url, params=parameters).json()
 
 def date_to_str(date):
     return date.strftime(DATE_FORMAT)
@@ -53,7 +37,21 @@ class API(object):
     """ API class for Eliq Online API  """
 
     def __init__(self, access_token):
+        self._session = Session()
         self._access_token = access_token
+
+    def _request_data(self, function, parameters=None):
+        if parameters is None:
+            parameters = {}
+
+        api_url = urljoin(
+            BASE_URL,
+            function,
+        )
+
+        parameters.update(accesstoken=self._access_token)
+
+        return self._session.get(api_url, params=parameters).json()
 
     def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
         """
@@ -85,7 +83,7 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        return get_data_from_eliq(self._access_token, function, parameters)
+        return self._request_data(function, parameters)
 
     def get_data_now(self, channelid=None):
         """
@@ -101,4 +99,4 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        return get_data_from_eliq(self._access_token, function, parameters)
+        return self._request_data(function, parameters)

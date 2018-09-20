@@ -17,7 +17,6 @@
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 from .api import API
-from .tools import Tools
 
 __all__ = ["API", "DataNow", "Data", "DataValues", "Tools"]
 __version__ = "1.0.14"
