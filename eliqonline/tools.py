@@ -56,7 +56,4 @@ class Tools(object):
         return self.session.get(api_url, params=parameters).json()
 
     def date_to_str(self, dateObj):
-        if isinstance(dateObj, datetime.date):
-            return str(dateObj.strftime(self.DATE_FORMAT_URL))
-        else:
-            return None
+        return str(dateObj.strftime(self.DATE_FORMAT_URL))
