@@ -59,3 +59,19 @@ Example output:
 09:24:00 -> 09:30:00: Avg. power: 1358 W
 ...
 ```
+
+### Using the module directly
+
+```
+$ python -m eliqonline now
+Current power: 408 w
+
+$ python -m eliqonline week
+2018-09-13T00:00:00 - 2018-09-14T00:00:00: average power: 2231 W
+2018-09-14T00:00:00 - 2018-09-15T00:00:00: average power: 1346 W
+2018-09-15T00:00:00 - 2018-09-16T00:00:00: average power: 1316 W
+2018-09-16T00:00:00 - 2018-09-17T00:00:00: average power: 9262 W
+2018-09-17T00:00:00 - 2018-09-18T00:00:00: average power: 1371 W
+2018-09-18T00:00:00 - 2018-09-19T00:00:00: average power: 1391 W
+2018-09-19T00:00:00 - 2018-09-20T00:00:00: average power: 1429 W
+```
