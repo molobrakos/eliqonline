@@ -65,8 +65,6 @@ class API(object):
         Returns:
             eliqonline.data
         """
-        function = "data"
-
         startdate = startdate.strftime(DATE_FORMAT)
         if enddate:
             enddate = enddate.strftime(DATE_FORMAT)
@@ -80,7 +78,7 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        return self._request_data(function, parameters)
+        return self._request_data('data', parameters)
 
     def get_data_now(self, channelid=None):
         """
@@ -90,10 +88,9 @@ class API(object):
         Returns:
             eliqonline.datanow
         """
-        function = "datanow"
         parameters = {}
 
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        return self._request_data(function, parameters)
+        return self._request_data('datanow', parameters)
