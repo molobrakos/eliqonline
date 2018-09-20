@@ -66,11 +66,18 @@ class API(object):
         Returns:
             eliqonline.data
         """
-        parameters = dict(startdate=startdate.strftime(DATE_FORMAT),
+
+        if isinstance(startdate, datetime.date):
+            startdate = startdate.strftime(DATE_FORMAT)
+
+        if isinstance(enddate, datetime.date):
+            enddate = enddate.strftime(DATE_FORMAT)
+
+        parameters = dict(startdate=startdate,
                           intervaltype=intervaltype)
 
         if enddate:
-            parameters.update(enddate=enddate.strftime(DATE_FORMAT))
+            parameters.update(enddate=enddate)
 
         return self._request_data('data', parameters, channelid=channelid)
 
