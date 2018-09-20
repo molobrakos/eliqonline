@@ -75,25 +75,22 @@ if __name__ == "__main__":
         exit()
 
     if args['today']:
+        intervaltype = api.INTERVAL_6MIN
         startdate = datetime(year=now.year, month=now.month, day=now.day)
         enddate = datetime(year=now.year, month=now.month, day=now.day,
                            hour=23, minute=59, second=59)
-        intervaltype = api.INTERVAL_6MIN
-    elif args['week']:
-        startdate = datetime(year=now.year, month=now.month, day=now.day) - timedelta(days=7)
-        enddate = now
+    else:
         intervaltype = api.INTERVAL_DAY
-    elif args['month']:
-        startdate = datetime(year=now.year, month=now.month, day=1)
         enddate = now
-        intervaltype = api.INTERVAL_DAY
-    elif args['year']:
-        startdate = datetime(year=now.year, month=1, day=1)
-        enddate = now
-        intervaltype = api.INTERVAL_DAY
+        if args['week']:
+            startdate = datetime(year=now.year, month=now.month, day=now.day) - timedelta(days=7)
+        elif args['month']:
+            startdate = datetime(year=now.year, month=now.month, day=1)
+        elif args['year']:
+            startdate = datetime(year=now.year, month=1, day=1)
 
     data = api.get_data(startdate=startdate, enddate=enddate,
-                        intervaltype=api.INTERVAL_DAY)
+                        intervaltype=intervaltype)
 
     for item_data in data['data']:
         print("%s - %s: average power: %4s W" % (
