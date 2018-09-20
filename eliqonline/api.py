@@ -28,12 +28,12 @@ BASE_URL = "https://my.eliq.io/api/"
 # Date format for url
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-INTERVAL_6MIN = "6min"
-INTERVAL_DAY = "day"
-
 
 class API(object):
     """ API class for Eliq Online API  """
+
+    INTERVAL_6MIN = "6min"
+    INTERVAL_DAY = "day"
 
     def __init__(self, access_token):
         self._session = Session()
