@@ -40,7 +40,7 @@ class API(object):
         self._access_token = access_token
 
     def _request_data(self, function, parameters=None):
-        if parameters is None:
+        if not parameters:
             parameters = {}
 
         api_url = urljoin(
@@ -68,10 +68,10 @@ class API(object):
         parameters = dict(startdate=startdate.strftime(DATE_FORMAT),
                           intervaltype=intervaltype)
 
-        if enddate is not None:
+        if enddate:
             parameters.update(enddate=enddate.strftime(DATE_FORMAT))
 
-        if channelid is not None:
+        if channelid:
             parameters.update(channelid=channelid)
 
         return self._request_data('data', parameters)
@@ -86,7 +86,7 @@ class API(object):
         """
         parameters = {}
 
-        if channelid is not None:
+        if channelid:
             parameters.update(channelid=channelid)
 
         return self._request_data('datanow', parameters)
