@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     if args['now']:
         power = api.get_data_now()['power']
-        print('Current power: %d kw' % power)
+        print('Current power: %d w' % power)
         exit()
 
     if args['today']:
