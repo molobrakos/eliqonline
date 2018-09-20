@@ -19,13 +19,41 @@
 from .tools import Tools
 
 import datetime
+from requests import Session
+from requests.compat import urljoin
+import datetime
+
+
+# Base url to Eliq Online API
+BASE_URL = "https://my.eliq.io/api/"
+
+# Date format for url
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+session = Session()
+
+def get_data_from_eliq(accesstoken, function, parameters=None):
+    if parameters is None:
+        parameters = {}
+
+    api_url = urljoin(
+        BASE_URL,
+        function,
+    )
+
+    parameters.update(accesstoken=accesstoken)
+
+    return session.get(api_url, params=parameters).json()
+
+def date_to_str(date):
+    return date.strftime(DATE_FORMAT)
 
 
 class API(object):
     """ API class for Eliq Online API  """
 
     def __init__(self, access_token):
-        self._tools = Tools(access_token)
+        self._access_token = access_token
 
     def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
         """
@@ -43,10 +71,10 @@ class API(object):
         function = "data"
 
         if isinstance(startdate, datetime.date):
-            startdate = self._tools.date_to_str(startdate)
+            startdate = date_to_str(startdate)
 
         if isinstance(enddate, datetime.date):
-            enddate = self._tools.date_to_str(enddate)
+            enddate = date_to_str(enddate)
 
         parameters = dict(startdate=startdate,
                           intervaltype=intervaltype)
@@ -57,7 +85,7 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        return self._tools.get_data_from_eliq(function, parameters)
+        return get_data_from_eliq(self._access_token, function, parameters)
 
     def get_data_now(self, channelid=None):
         """
@@ -73,4 +101,4 @@ class API(object):
         if channelid is not None:
             parameters.update(channelid=channelid)
 
-        return self._tools.get_data_from_eliq(function, parameters)
+        return get_data_from_eliq(self._access_token, function, parameters)
