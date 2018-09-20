@@ -28,6 +28,8 @@ lint:
 test:
 	nosetests --with-coverage --cover-package eliqonline
 
+checkall: clean pep8 lint test
+
 pypitest:
 	python setup.py sdist
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
@@ -35,6 +37,9 @@ pypitest:
 pypi:
 	python setup.py sdist
 	twine upload dist/*
+
+release:
+	git diff-index --quiet HEAD -- && make checkall && bumpversion patch && git push && make pypi
 
 run:
 	@python -m eliqonline -vv now
