@@ -18,6 +18,7 @@
 
 from requests import Session
 from requests.compat import urljoin
+import datetime
 
 
 # Base url to Eliq Online API
