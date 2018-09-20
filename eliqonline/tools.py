@@ -55,24 +55,6 @@ class Tools(object):
 
         return self.session.get(api_url, params=parameters).json()
 
-    def maybe_to_date(self, date_string):
-        if date_string is not None:
-            return self.to_date(date_string)
-        else:
-            return None
-
-    def to_date(self, date_string):
-        return datetime.datetime.strptime(
-            date_string,
-            self.DATE_FORMAT
-        )
-
-    def maybe_to_float(self, float_string):
-        if float_string is not None:
-            return float(float_string)
-        else:
-            return None
-
     def date_to_str(self, dateObj):
         if isinstance(dateObj, datetime.date):
             return str(dateObj.strftime(self.DATE_FORMAT_URL))
