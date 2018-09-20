@@ -55,5 +55,5 @@ class Tools(object):
 
         return self.session.get(api_url, params=parameters).json()
 
-    def date_to_str(self, dateObj):
-        return str(dateObj.strftime(self.DATE_FORMAT_URL))
+    def date_to_str(self, date):
+        return date.strftime(self.DATE_FORMAT_URL)
