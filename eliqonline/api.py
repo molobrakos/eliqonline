@@ -28,6 +28,9 @@ BASE_URL = "https://my.eliq.io/api/"
 # Date format for url
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
+INTERVAL_6MIN = "6min"
+INTERVAL_DAY = "day"
+
 
 class API(object):
     """ API class for Eliq Online API  """
@@ -52,8 +55,8 @@ class API(object):
     def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
         """
         Args:
-            startdate (str or datetime):
-            intervaltype (str or datetime):
+            startdate (datetime):
+            intervaltype (str):
                 day
                 6min
             enddate (str): optional
