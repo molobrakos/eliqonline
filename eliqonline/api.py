@@ -65,7 +65,8 @@ class API(object):
         function = "data"
 
         startdate = startdate.strftime(DATE_FORMAT)
-        enddate = enddate.strftime(DATE_FORMAT)
+        if enddate:
+            enddate = enddate.strftime(DATE_FORMAT)
 
         parameters = dict(startdate=startdate,
                           intervaltype=intervaltype)
