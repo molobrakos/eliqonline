@@ -83,7 +83,9 @@ if __name__ == "__main__":
         intervaltype = api.INTERVAL_DAY
         enddate = now
         if args['week']:
-            startdate = datetime(year=now.year, month=now.month, day=now.day) - timedelta(days=7)
+            startdate = datetime(year=now.year,
+                                 month=now.month,
+                                 day=now.day) - timedelta(days=7)
         elif args['month']:
             startdate = datetime(year=now.year, month=now.month, day=1)
         elif args['year']:
