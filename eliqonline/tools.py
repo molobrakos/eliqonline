@@ -30,11 +30,8 @@ class Tools(object):
     # Access token for API
     ACCESS_TOKEN = None
 
-    # Date format, (ISO 8601, European)
-    DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
-
     # Date format for url
-    DATE_FORMAT_URL = "%Y-%m-%d %H:%M:%S"
+    DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
     session = Session()
 
@@ -56,4 +53,4 @@ class Tools(object):
         return self.session.get(api_url, params=parameters).json()
 
     def date_to_str(self, date):
-        return date.strftime(self.DATE_FORMAT_URL)
+        return date.strftime(self.DATE_FORMAT)
