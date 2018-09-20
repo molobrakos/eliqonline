@@ -62,7 +62,7 @@ class API(object):
             intervaltype (str):
                 day
                 6min
-            enddate (str): optional
+            enddate (datetime): optional
             channelid (int): optinal
 
         Returns:
@@ -84,6 +84,4 @@ class API(object):
         Returns:
             eliqonline.datanow
         """
-        parameters = {}
-
-        return self._request_data('datanow', parameters, channelid=channelid)
+        return self._request_data('datanow', channelid=channelid)
