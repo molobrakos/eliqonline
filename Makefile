@@ -37,4 +37,4 @@ pypi:
 	twine upload dist/*
 
 run:
-	@python -m eliqonline -vv datanow
+	@python -m eliqonline -vv now
