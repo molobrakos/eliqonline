@@ -1,7 +1,7 @@
 default: check
 
 clean:
-	rm -rf dist *.egg-info .pytest_cache eliqonline/__pycache__ .tox
+	rm -rf dist *.egg-info .pytest_cache __pycache__
 	find . -name '*.pyc' -exec rm -f {} \;
 	find . -name '*.pyo' -exec rm -f {} \;
 	find . -name '*~' -exec rm -f {} \;
