@@ -13,10 +13,10 @@ Usage:
 
 Options:
   -t <token>      Access token
-  -h --help             Show this message
-  -v,-vv                Increase verbosity
-  -d                    Debug
-  --version             Show version
+  -h --help       Show this message
+  -v,-vv          Increase verbosity
+  -d              Debug
+  --version       Show version
 """
 
 import docopt
