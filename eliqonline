@@ -62,8 +62,7 @@ async def main(args, config):
     access_token = args.get("-t") or config.get("accesstoken")
 
     async with ClientSession() as session:
-        api = API(session = session,
-                  access_token=access_token)
+        api = API(session=session, access_token=access_token)
         if args["now"]:
             result = await api.get_data_now()
             print("Current power: %d w" % result["power"])
@@ -103,9 +102,7 @@ async def main(args, config):
                 % (
                     item["time_start"],
                     item["time_end"],
-                    str(int(item["avgpower"]))
-                    if item["avgpower"]
-                    else "?",
+                    str(int(item["avgpower"])) if item["avgpower"] else "?",
                 )
             )
 
@@ -130,6 +127,7 @@ if __name__ == "__main__":
         from asyncio import run
     except ImportError:
         _LOGGER.debug("Pre 3.7 patch")
+
         def run(fut, debug=False):
             # pre 3.7
             loop = asyncio.get_event_loop()

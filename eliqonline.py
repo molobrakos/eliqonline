@@ -23,7 +23,9 @@ from urllib.parse import urljoin
 
 MIN_PYTHON_VERSION = (3, 5, 3)
 
-_ = version_info >= MIN_PYTHON_VERSION or exit("Python %d.%d.%d required" % MIN_PYTHON_VERSION)
+_ = version_info >= MIN_PYTHON_VERSION or exit(
+    "Python %d.%d.%d required" % MIN_PYTHON_VERSION
+)
 
 __version__ = "1.1.2"
 
@@ -37,7 +39,7 @@ DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 TIMEOUT = timedelta(seconds=30)
 
 
-class API():
+class API:
     """ API class for Eliq Online API  """
 
     INTERVAL_6MIN = "6min"
@@ -58,13 +60,17 @@ class API():
         if channelid:
             parameters.update(channelid=channelid)
 
-        async with self._session.get(api_url,
-                                     params=parameters,
-                                     timeout=ClientTimeout(total=TIMEOUT.seconds)) as response:
+        async with self._session.get(
+            api_url,
+            params=parameters,
+            timeout=ClientTimeout(total=TIMEOUT.seconds),
+        ) as response:
             response.raise_for_status()
             return await response.json()
 
-    async def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
+    async def get_data(
+        self, startdate, intervaltype, enddate=None, channelid=None
+    ):
         """
         Args:
             startdate (datetime):
@@ -89,7 +95,9 @@ class API():
         if enddate:
             parameters.update(enddate=enddate)
 
-        return await self._request_data("data", parameters, channelid=channelid)
+        return await self._request_data(
+            "data", parameters, channelid=channelid
+        )
 
     async def get_data_now(self, channelid=None):
         """

@@ -1,5 +1,8 @@
 default: check
 
+black:
+	white . eliqonline
+
 clean:
 	rm -rf dist *.egg-info .pytest_cache __pycache__
 	find . -name '*.pyc' -exec rm -f {} \;
