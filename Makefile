@@ -4,7 +4,7 @@ black:
 	white . eliqonline
 
 clean:
-	rm -rf dist *.egg-info .pytest_cache __pycache__
+	rm -rf dist *.egg-info .pytest_cache __pycache__ .tox
 	find . -name '*.pyc' -exec rm -f {} \;
 	find . -name '*.pyo' -exec rm -f {} \;
 	find . -name '*~' -exec rm -f {} \;
