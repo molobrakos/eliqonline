@@ -71,19 +71,6 @@ class API:
     async def get_data(
         self, startdate, intervaltype, enddate=None, channelid=None
     ):
-        """
-        Args:
-            startdate (datetime):
-            intervaltype (str):
-                day
-                6min
-            enddate (datetime): optional
-            channelid (int): optinal
-
-        Returns:
-            eliqonline.data
-        """
-
         if isinstance(startdate, date):
             startdate = startdate.strftime(DATE_FORMAT)
 
@@ -100,11 +87,4 @@ class API:
         )
 
     async def get_data_now(self, channelid=None):
-        """
-        Args:
-            channelid (int)
-
-        Returns:
-            eliqonline.datanow
-        """
         return await self._request_data("datanow", channelid=channelid)
