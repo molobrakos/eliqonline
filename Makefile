@@ -1,34 +1,18 @@
-help:
-	@echo "  ___ _ _       ___       _ _            _   ___ ___ "
-	@echo " | __| (_)__ _ / _ \ _ _ | (_)_ _  ___  /_\ | _ \_ _|"
-	@echo " | _|| | / _' | (_) | ' \| | | ' \/ -_)/ _ \|  _/| | "
-	@echo " |___|_|_\__, |\___/|_||_|_|_|_||_\___/_/ \_\_| |___|"
-	@echo "            |_| Python Library                        "
-	@echo "make:"
-	@echo "      clean: clean project"
-	@echo "      pep8: run flake8 (pep8) on project"
-	@echo "      lint: run pylint on project"
-	@echo "      test: run tests"
-	@echo "      pypi: register and upload to pypi"
-	@echo "      pypitest: register and upload to pypitest"
-	@echo ""
+default: check
 
 clean:
-	rm -rf dist *.egg-info
+	rm -rf dist *.egg-info .pytest_cache test/__pycache__ .tox
 	find . -name '*.pyc' -exec rm -f {} \;
 	find . -name '*.pyo' -exec rm -f {} \;
 	find . -name '*~' -exec rm -f {} \;
 
-pep8:
-	flake8 eliqonline
+lint: requirements.txt setup.py
+	tox -e lint
 
-lint:
-	pylint -E eliqonline
+test: requirements.txt setup.py
+	tox
 
-test:
-	nosetests --with-coverage --cover-package eliqonline
-
-checkall: clean pep8 lint test
+check: lint test
 
 pypitest:
 	python setup.py sdist
@@ -39,7 +23,8 @@ pypi:
 	twine upload dist/*
 
 release:
-	git diff-index --quiet HEAD -- && make checkall && bumpversion patch && git push && make pypi
+	git diff-index --quiet HEAD -- && make check && bumpversion patch && git push --tags && git push && make pypi
+
 
 run:
 	@python -m eliqonline -vv now
