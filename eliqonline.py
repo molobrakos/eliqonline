@@ -17,7 +17,7 @@
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 from sys import version_info
-from aiohttp import ClientSession, ClientTimeout
+from aiohttp import ClientTimeout
 from datetime import timedelta, date
 from urllib.parse import urljoin
 
