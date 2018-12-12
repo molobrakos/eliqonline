@@ -18,8 +18,12 @@
 
 from requests import Session
 from requests.compat import urljoin
+from sys import version_info
 import datetime
 
+MIN_PYTHON_VERSION = (3, 5, 3)
+
+_ = version_info >= MIN_PYTHON_VERSION or exit("Python %d.%d.%d required" % MIN_PYTHON_VERSION)
 
 __version__ = "1.1.2"
 
