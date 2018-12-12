@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 
-from requests import Session
-from requests.compat import urljoin
 from sys import version_info
-import datetime
+from aiohttp import ClientSession, ClientTimeout
+from datetime import timedelta, date
+from urllib.parse import urljoin
 
 MIN_PYTHON_VERSION = (3, 5, 3)
 
@@ -34,18 +34,35 @@ BASE_URL = "https://my.eliq.io/api/"
 # Date format for url
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
+TIMEOUT = timedelta(seconds=30)
 
-class API(object):
+try:
+    from contextlib import AbstractAsyncContextManager
+except ImportError:
+    _LOGGER.debug("Pre 3.7 patch")
+    class AbstractAsyncContextManager:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc_value, tb):
+            return None
+
+
+class API(AbstractAsyncContextManager):
     """ API class for Eliq Online API  """
 
     INTERVAL_6MIN = "6min"
     INTERVAL_DAY = "day"
 
     def __init__(self, access_token):
-        self._session = Session()
+        self._session = ClientSession(raise_for_status=True,
+                                      timeout=ClientTimeout(total=TIMEOUT.seconds))
         self._access_token = access_token
 
-    def _request_data(self, function, parameters=None, channelid=None):
+    async def __aexit__(self, exc_type, exc, tb):
+        await self._session.close()
+
+    async def _request_data(self, function, parameters=None, channelid=None):
         if not parameters:
             parameters = {}
 
@@ -56,9 +73,10 @@ class API(object):
         if channelid:
             parameters.update(channelid=channelid)
 
-        return self._session.get(api_url, params=parameters).json()
+        async with self._session.get(api_url, params=parameters) as response:
+            return await response.json()
 
-    def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
+    async def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
         """
         Args:
             startdate (datetime):
@@ -72,10 +90,10 @@ class API(object):
             eliqonline.data
         """
 
-        if isinstance(startdate, datetime.date):
+        if isinstance(startdate, date):
             startdate = startdate.strftime(DATE_FORMAT)
 
-        if isinstance(enddate, datetime.date):
+        if isinstance(enddate, date):
             enddate = enddate.strftime(DATE_FORMAT)
 
         parameters = dict(startdate=startdate, intervaltype=intervaltype)
@@ -83,9 +101,9 @@ class API(object):
         if enddate:
             parameters.update(enddate=enddate)
 
-        return self._request_data("data", parameters, channelid=channelid)
+        return await self._request_data("data", parameters, channelid=channelid)
 
-    def get_data_now(self, channelid=None):
+    async def get_data_now(self, channelid=None):
         """
         Args:
             channelid (int)
@@ -93,4 +111,4 @@ class API(object):
         Returns:
             eliqonline.datanow
         """
-        return self._request_data("datanow", channelid=channelid)
+        return await self._request_data("datanow", channelid=channelid)

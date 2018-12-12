@@ -15,6 +15,7 @@ Options:
   -t <token>      Access token
   -h --help             Show this message
   -v,-vv                Increase verbosity
+  -d                    Debug
   --version             Show version
 """
 
@@ -56,60 +57,84 @@ def read_config():
     return {}
 
 
+async def main(args, config):
+    access_token = args.get("-t") or config.get("accesstoken")
+
+    async with API(access_token=access_token) as api:
+        if args["now"]:
+            result = await api.get_data_now()
+            print("Current power: %d w" % result["power"])
+            return
+
+        now = datetime.now()
+        if args["today"]:
+            intervaltype = api.INTERVAL_6MIN
+            startdate = datetime(year=now.year, month=now.month, day=now.day)
+            enddate = datetime(
+                year=now.year,
+                month=now.month,
+                day=now.day,
+                hour=23,
+                minute=59,
+                second=59,
+            )
+        else:
+            intervaltype = api.INTERVAL_DAY
+            enddate = now
+            if args["week"]:
+                startdate = datetime(
+                    year=now.year, month=now.month, day=now.day
+                ) - timedelta(days=7)
+            elif args["month"]:
+                startdate = datetime(year=now.year, month=now.month, day=1)
+            elif args["year"]:
+                startdate = datetime(year=now.year, month=1, day=1)
+
+        result = await api.get_data(
+            startdate=startdate, enddate=enddate, intervaltype=intervaltype
+        )
+
+        for item in result["data"]:
+            print(
+                "%s - %s: average power: %4s W"
+                % (
+                    item["time_start"],
+                    item["time_end"],
+                    str(int(item["avgpower"]))
+                    if item["avgpower"]
+                    else "?",
+                )
+            )
+
+
 if __name__ == "__main__":
     args = docopt.docopt(__doc__, version=__version__)
 
-    log_level = [logging.ERROR, logging.INFO, logging.DEBUG][args["-v"]]
+    debug = args["-d"]
+
+    if debug:
+        log_level = logging.DEBUG
+    else:
+        log_level = [logging.ERROR, logging.INFO, logging.DEBUG][args["-v"]]
+
     logging.basicConfig(
         level=log_level, stream=stderr, datefmt=DATEFMT, format=LOGFMT
     )
 
     config = read_config()
-    access_token = args.get("-t") or config.get("accesstoken")
-    api = API(access_token=access_token)
 
-    now = datetime.now()
+    try:
+        from asyncio import run
+    except ImportError:
+        _LOGGER.debug("Pre 3.7 patch")
+        def run(fut, debug=False):
+            # pre 3.7
+            loop = asyncio.get_event_loop()
+            loop.set_debug(debug)
+            loop.run_until_complete(fut)
+            loop.close()
 
-    if args["now"]:
-        power = api.get_data_now()["power"]
-        print("Current power: %d w" % power)
-        exit()
-
-    if args["today"]:
-        intervaltype = api.INTERVAL_6MIN
-        startdate = datetime(year=now.year, month=now.month, day=now.day)
-        enddate = datetime(
-            year=now.year,
-            month=now.month,
-            day=now.day,
-            hour=23,
-            minute=59,
-            second=59,
-        )
-    else:
-        intervaltype = api.INTERVAL_DAY
-        enddate = now
-        if args["week"]:
-            startdate = datetime(
-                year=now.year, month=now.month, day=now.day
-            ) - timedelta(days=7)
-        elif args["month"]:
-            startdate = datetime(year=now.year, month=now.month, day=1)
-        elif args["year"]:
-            startdate = datetime(year=now.year, month=1, day=1)
-
-    data = api.get_data(
-        startdate=startdate, enddate=enddate, intervaltype=intervaltype
-    )
-
-    for item_data in data["data"]:
-        print(
-            "%s - %s: average power: %4s W"
-            % (
-                item_data["time_start"],
-                item_data["time_end"],
-                str(int(item_data["avgpower"]))
-                if item_data["avgpower"]
-                else "?",
-            )
-        )
+    try:
+        run(main(args, config), debug=debug)
+    except KeyboardInterrupt:
+        pass
