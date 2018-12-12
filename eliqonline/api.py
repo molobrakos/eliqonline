@@ -42,10 +42,7 @@ class API(object):
         if not parameters:
             parameters = {}
 
-        api_url = urljoin(
-            BASE_URL,
-            function,
-        )
+        api_url = urljoin(BASE_URL, function)
 
         parameters.update(accesstoken=self._access_token)
 
@@ -74,13 +71,12 @@ class API(object):
         if isinstance(enddate, datetime.date):
             enddate = enddate.strftime(DATE_FORMAT)
 
-        parameters = dict(startdate=startdate,
-                          intervaltype=intervaltype)
+        parameters = dict(startdate=startdate, intervaltype=intervaltype)
 
         if enddate:
             parameters.update(enddate=enddate)
 
-        return self._request_data('data', parameters, channelid=channelid)
+        return self._request_data("data", parameters, channelid=channelid)
 
     def get_data_now(self, channelid=None):
         """
@@ -90,4 +86,4 @@ class API(object):
         Returns:
             eliqonline.datanow
         """
-        return self._request_data('datanow', channelid=channelid)
+        return self._request_data("datanow", channelid=channelid)
