@@ -21,6 +21,9 @@ from requests.compat import urljoin
 import datetime
 
 
+__version__ = "1.1.2"
+
+
 # Base url to Eliq Online API
 BASE_URL = "https://my.eliq.io/api/"
 
