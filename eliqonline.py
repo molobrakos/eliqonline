@@ -36,31 +36,16 @@ DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 TIMEOUT = timedelta(seconds=30)
 
-try:
-    from contextlib import AbstractAsyncContextManager
-except ImportError:
-    _LOGGER.debug("Pre 3.7 patch")
-    class AbstractAsyncContextManager:
-        async def __aenter__(self):
-            return self
 
-        async def __aexit__(self, exc_type, exc_value, tb):
-            return None
-
-
-class API(AbstractAsyncContextManager):
+class API():
     """ API class for Eliq Online API  """
 
     INTERVAL_6MIN = "6min"
     INTERVAL_DAY = "day"
 
-    def __init__(self, access_token):
-        self._session = ClientSession(raise_for_status=True,
-                                      timeout=ClientTimeout(total=TIMEOUT.seconds))
+    def __init__(self, session, access_token):
+        self._session = session
         self._access_token = access_token
-
-    async def __aexit__(self, exc_type, exc, tb):
-        await self._session.close()
 
     async def _request_data(self, function, parameters=None, channelid=None):
         if not parameters:
@@ -73,7 +58,10 @@ class API(AbstractAsyncContextManager):
         if channelid:
             parameters.update(channelid=channelid)
 
-        async with self._session.get(api_url, params=parameters) as response:
+        async with self._session.get(api_url,
+                                     params=parameters,
+                                     timeout=ClientTimeout(total=TIMEOUT.seconds)) as response:
+            response.raise_for_status()
             return await response.json()
 
     async def get_data(self, startdate, intervaltype, enddate=None, channelid=None):
