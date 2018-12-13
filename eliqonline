@@ -32,7 +32,6 @@ from eliqonline import API, __version__
 
 LOGFMT = "%(asctime)s %(levelname)5s (%(threadName)s) [%(name)s] %(message)s"
 DATEFMT = "%y-%m-%d %H:%M.%S"
-LOG_LEVEL = logging.DEBUG
 _LOGGER = logging.getLogger(__name__)
 
 
