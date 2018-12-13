@@ -40,6 +40,7 @@ DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 TIMEOUT = timedelta(seconds=30)
 
+
 class API:
     """ API class for Eliq Online API  """
 
