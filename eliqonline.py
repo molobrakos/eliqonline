@@ -20,6 +20,7 @@ from sys import version_info
 from aiohttp import ClientTimeout
 from datetime import timedelta, date
 from urllib.parse import urljoin
+import logging
 
 MIN_PYTHON_VERSION = (3, 5, 3)
 
@@ -29,6 +30,7 @@ _ = version_info >= MIN_PYTHON_VERSION or exit(
 
 __version__ = "1.2.0"
 
+_LOGGER = logging.getLogger(__name__)
 
 # Base url to Eliq Online API
 BASE_URL = "https://my.eliq.io/api/"
@@ -38,7 +40,6 @@ DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 TIMEOUT = timedelta(seconds=30)
 
-
 class API:
     """ API class for Eliq Online API  """
 
@@ -46,6 +47,7 @@ class API:
     INTERVAL_DAY = "day"
 
     def __init__(self, session, access_token):
+        _LOGGER.debug("Using %s version %s", __file__, __version__)
         self._session = session
         self._access_token = access_token
 
