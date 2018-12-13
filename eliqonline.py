@@ -48,7 +48,7 @@ class API:
     INTERVAL_DAY = "day"
 
     def __init__(self, session, access_token):
-        _LOGGER.debug("Using %s version %s", __file__, __version__)
+        _LOGGER.info("%s %s %s", __name__, __version__, __file__)
         self._session = session
         self._access_token = access_token
 
